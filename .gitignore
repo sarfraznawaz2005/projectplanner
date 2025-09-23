@@ -1,0 +1,14 @@
+# Composer
+/vendor/
+/composer.lock
+
+# Environment variables
+.env
+
+# Temporary files
+*.jpg
+/start-server.bat
+/todo.txt
+
+# Project specific generated files
+/projects/
