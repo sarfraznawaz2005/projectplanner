@@ -16,8 +16,8 @@
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
      <link href="assets/css/style.css?v=<?php echo time(); ?>" rel="stylesheet">
 
-    <!-- Markdown Editor -->
-    <link href="https://unpkg.com/easymde/dist/easymde.min.css" rel="stylesheet">
+     <!-- Markdown Editor -->
+     <link href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
@@ -117,9 +117,9 @@
                         </h2>
                     </div>
 
-                    <div class="content-section">
-                        <textarea class="content-editor" id="prdEditor" style="display: none;"></textarea>
-                    </div>
+                     <div class="content-section">
+                         <div class="content-editor" id="prdEditor" style="display: none;"></div>
+                     </div>
                 </div>
 
                 <!-- Step 3: System Design Document -->
@@ -131,9 +131,9 @@
                         </h2>
                     </div>
 
-                     <div class="content-section">
-                         <textarea class="content-editor" id="sddEditor" style="display: none;"></textarea>
-                     </div>
+                      <div class="content-section">
+                          <div class="content-editor" id="sddEditor" style="display: none;"></div>
+                      </div>
                 </div>
 
                 <!-- Step 4: Development Plan -->
@@ -145,9 +145,9 @@
                         </h2>
                     </div>
 
-                    <div class="content-section">
-                        <textarea class="content-editor" id="planEditor" style="display: none;"></textarea>
-                    </div>
+                     <div class="content-section">
+                         <div class="content-editor" id="planEditor" style="display: none;"></div>
+                     </div>
                 </div>
 
                 <!-- Step 5: Phase Documents -->
@@ -159,9 +159,9 @@
                         </h2>
                     </div>
 
-                    <div class="content-section">
-                        <textarea class="content-editor" id="phasesEditor" style="display: none;"></textarea>
-                    </div>
+                     <div class="content-section">
+                         <div class="content-editor" id="phasesEditor" style="display: none;"></div>
+                     </div>
                     
                     <div class="step-actions">
                         <button type="button" class="btn btn-outline-secondary" id="skipAIInstructionsBtn">
@@ -183,9 +183,9 @@
                          </p>
                      </div>
 
-                     <div class="content-section">
-                         <textarea class="content-editor" id="aiInstructionsEditor" style="display: none;"></textarea>
-                     </div>
+                      <div class="content-section">
+                          <div class="content-editor" id="aiInstructionsEditor" style="display: none;"></div>
+                      </div>
                  </div>
 
                  <!-- Step 7: Generate Diagrams -->
@@ -318,7 +318,7 @@
 
      <!-- Scripts -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+      <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
      <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

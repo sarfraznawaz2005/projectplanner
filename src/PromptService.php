@@ -62,7 +62,11 @@ Include these sections:
     Provide rationale for each choice.
 3. Functional Components
 4. Non-Functional Requirements
-5. Capacity Planning: [Make assumptions about user load based on project prd. Provide calculations and any used formula too.]
+5. Capacity Planning:
+    - Assumptions:
+    - Formulae:
+    - Calculations:
+    - Recommendations:
 6. System Components: [markdown table]
 7. Data Model:
     - Entity Relationships: [must use markdown table format: `Entity 1`, `Relationship`, `Entity 2`, `Description`]

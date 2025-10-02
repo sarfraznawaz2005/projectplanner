@@ -63,6 +63,7 @@ class ProjectPlanner {
         this.editors.prd = null;
         this.editors.plan = null;
         this.editors.phases = null;
+        this.editors.aiInstructions = null;
     }
     
     /**
@@ -432,38 +433,27 @@ class ProjectPlanner {
         // Ensure loading overlay is hidden
         this.hideLoadingOverlay();
 
-        // Initialize EasyMDE editor
+        // Initialize Toast UI Editor
         if (!this.editors.prd) {
-            this.editors.prd = new EasyMDE({
-                element: editorContainer,
-                spellChecker: false,
-                renderingConfig: {
-                    singleLineBreaks: false,
-                    codeSyntaxHighlighting: true,
-                },
-                toolbar: [
-                    'bold', 'italic', 'heading', '|',
-                    'code', 'quote', 'unordered-list', 'ordered-list', '|',
-                    'link', 'image', '|',
-                    'preview', 'side-by-side', 'fullscreen', '|',
-                    'guide'
+            this.editors.prd = new toastui.Editor({
+                el: editorContainer,
+                height: 'auto',
+                initialEditType: 'wysiwyg',
+                toolbarItems: [
+                    ['heading', 'bold', 'italic'],
+                    ['hr', 'quote'],
+                    ['ul', 'ol', 'task'],
+                    ['table', 'image', 'link'],
+                    ['code', 'codeblock']
                 ],
-                status: ['autosave', 'lines', 'words', 'cursor'],
-                autofocus: true,
-                placeholder: 'PRD content will appear here...'
+                placeholder: 'PRD content will appear here...',
+                usageStatistics: false
             });
         }
 
         // Set the content
         if (this.editors.prd) {
-            this.editors.prd.value(this.projectData.prd || '');
-            if (this.editors.prd.codemirror) {
-                this.editors.prd.codemirror.refresh();
-            }
-            // Switch to preview mode by default
-            if (!this.editors.prd.isPreviewActive()) {
-                this.editors.prd.togglePreview();
-            }
+            this.editors.prd.setMarkdown(this.projectData.prd || '');
         }
 
         this.progressCompleted = 1;
@@ -618,37 +608,25 @@ class ProjectPlanner {
         editorContainer.style.display = 'block';
 
         if (!this.editors.plan) {
-            this.editors.plan = new EasyMDE({
-                element: editorContainer,
-                spellChecker: false,
-                renderingConfig: {
-                    singleLineBreaks: false,
-                    codeSyntaxHighlighting: true,
-                },
-                toolbar: [
-                    'bold', 'italic', 'heading', '|',
-                    'code', 'quote', 'unordered-list', 'ordered-list', '|',
-                    'link', 'image', '|',
-                    'preview', 'side-by-side', 'fullscreen', '|',
-                    'guide'
+            this.editors.plan = new toastui.Editor({
+                el: editorContainer,
+                height: 'auto',
+                initialEditType: 'wysiwyg',
+                toolbarItems: [
+                    ['heading', 'bold', 'italic'],
+                    ['hr', 'quote'],
+                    ['ul', 'ol', 'task'],
+                    ['table', 'image', 'link'],
+                    ['code', 'codeblock']
                 ],
-                status: ['autosave', 'lines', 'words', 'cursor'],
-                autofocus: true,
-                placeholder: 'Development plan will appear here...'
+                placeholder: 'Development plan will appear here...',
+                usageStatistics: false
             });
         }
 
         // Set the content after ensuring the editor is initialized
         if (this.editors.plan) {
-            this.editors.plan.value(this.projectData.plan || '');
-            // Refresh the editor to ensure proper rendering
-            if (this.editors.plan.codemirror) {
-                this.editors.plan.codemirror.refresh();
-            }
-            // Switch to preview mode by default
-            if (!this.editors.plan.isPreviewActive()) {
-                this.editors.plan.togglePreview();
-            }
+            this.editors.plan.setMarkdown(this.projectData.plan || '');
         }
 
         this.progressCompleted = 3;
@@ -666,37 +644,25 @@ class ProjectPlanner {
         editorContainer.style.display = 'block';
 
         if (!this.editors.sdd) {
-            this.editors.sdd = new EasyMDE({
-                element: editorContainer,
-                spellChecker: false,
-                renderingConfig: {
-                    singleLineBreaks: false,
-                    codeSyntaxHighlighting: true,
-                },
-                toolbar: [
-                    'bold', 'italic', 'heading', '|',
-                    'code', 'quote', 'unordered-list', 'ordered-list', '|',
-                    'link', 'image', '|',
-                    'preview', 'side-by-side', 'fullscreen', '|',
-                    'guide'
+            this.editors.sdd = new toastui.Editor({
+                el: editorContainer,
+                height: 'auto',
+                initialEditType: 'wysiwyg',
+                toolbarItems: [
+                    ['heading', 'bold', 'italic'],
+                    ['hr', 'quote'],
+                    ['ul', 'ol', 'task'],
+                    ['table', 'image', 'link'],
+                    ['code', 'codeblock']
                 ],
-                status: ['autosave', 'lines', 'words', 'cursor'],
-                autofocus: true,
-                placeholder: 'System design document will appear here...'
+                placeholder: 'System design document will appear here...',
+                usageStatistics: false
             });
         }
 
         // Set the SDD content (without diagram)
         if (this.editors.sdd) {
-            this.editors.sdd.value(this.projectData.sdd || '');
-            // Refresh the editor to ensure proper rendering
-            if (this.editors.sdd.codemirror) {
-                this.editors.sdd.codemirror.refresh();
-            }
-            // Switch to preview mode by default
-            if (!this.editors.sdd.isPreviewActive()) {
-                this.editors.sdd.togglePreview();
-            }
+            this.editors.sdd.setMarkdown(this.projectData.sdd || '');
         }
 
 
@@ -803,37 +769,25 @@ class ProjectPlanner {
         editorContainer.style.display = 'block';
 
         if (!this.editors.phases) {
-            this.editors.phases = new EasyMDE({
-                element: editorContainer,
-                spellChecker: false,
-                renderingConfig: {
-                    singleLineBreaks: false,
-                    codeSyntaxHighlighting: true,
-                },
-                toolbar: [
-                    'bold', 'italic', 'heading', '|',
-                    'code', 'quote', 'unordered-list', 'ordered-list', '|',
-                    'link', 'image', '|',
-                    'preview', 'side-by-side', 'fullscreen', '|',
-                    'guide'
+            this.editors.phases = new toastui.Editor({
+                el: editorContainer,
+                height: 'auto',
+                initialEditType: 'wysiwyg',
+                toolbarItems: [
+                    ['heading', 'bold', 'italic'],
+                    ['hr', 'quote'],
+                    ['ul', 'ol', 'task'],
+                    ['table', 'image', 'link'],
+                    ['code', 'codeblock']
                 ],
-                status: ['autosave', 'lines', 'words', 'cursor'],
-                autofocus: true,
-                placeholder: 'Phase documents will appear here...'
+                placeholder: 'Phase documents will appear here...',
+                usageStatistics: false
             });
         }
 
         // Set the content after ensuring the editor is initialized
         if (this.editors.phases) {
-            this.editors.phases.value(this.projectData.phases || '');
-            // Refresh the editor to ensure proper rendering
-            if (this.editors.phases.codemirror) {
-                this.editors.phases.codemirror.refresh();
-            }
-            // Switch to preview mode by default
-            if (!this.editors.phases.isPreviewActive()) {
-                this.editors.phases.togglePreview();
-            }
+            this.editors.phases.setMarkdown(this.projectData.phases || '');
         }
 
         this.progressCompleted = 4;
@@ -850,37 +804,25 @@ class ProjectPlanner {
         editorContainer.style.display = 'block';
 
         if (!this.editors.aiInstructions) {
-            this.editors.aiInstructions = new EasyMDE({
-                element: editorContainer,
-                spellChecker: false,
-                renderingConfig: {
-                    singleLineBreaks: false,
-                    codeSyntaxHighlighting: true,
-                },
-                toolbar: [
-                    'bold', 'italic', 'heading', '|',
-                    'code', 'quote', 'unordered-list', 'ordered-list', '|',
-                    'link', 'image', '|',
-                    'preview', 'side-by-side', 'fullscreen', '|',
-                    'guide'
+            this.editors.aiInstructions = new toastui.Editor({
+                el: editorContainer,
+                height: 'auto',
+                initialEditType: 'wysiwyg',
+                toolbarItems: [
+                    ['heading', 'bold', 'italic'],
+                    ['hr', 'quote'],
+                    ['ul', 'ol', 'task'],
+                    ['table', 'image', 'link'],
+                    ['code', 'codeblock']
                 ],
-                status: ['autosave', 'lines', 'words', 'cursor'],
-                autofocus: true,
-                placeholder: 'AI coding agent guide will appear here...'
+                placeholder: 'AI coding agent guide will appear here...',
+                usageStatistics: false
             });
         }
 
         // Set the content after ensuring the editor is initialized
         if (this.editors.aiInstructions) {
-            this.editors.aiInstructions.value(this.projectData.aiInstructions || '');
-            // Refresh the editor to ensure proper rendering
-            if (this.editors.aiInstructions.codemirror) {
-                this.editors.aiInstructions.codemirror.refresh();
-            }
-            // Switch to preview mode by default
-            if (!this.editors.aiInstructions.isPreviewActive()) {
-                this.editors.aiInstructions.togglePreview();
-            }
+            this.editors.aiInstructions.setMarkdown(this.projectData.aiInstructions || '');
         }
 
         this.progressCompleted = 5;
@@ -1042,12 +984,12 @@ class ProjectPlanner {
         const data = {
             name: this.projectData.name,
             idea: this.projectData.idea,
-            prd: this.editors.prd ? this.editors.prd.value() : this.projectData.prd,
-            sdd: this.editors.sdd ? this.editors.sdd.value() : this.projectData.sdd,
+            prd: this.editors.prd ? this.editors.prd.getMarkdown() : this.projectData.prd,
+            sdd: this.editors.sdd ? this.editors.sdd.getMarkdown() : this.projectData.sdd,
             systemArchDiagram: this.projectData.systemArchDiagram,
-            plan: this.editors.plan ? this.editors.plan.value() : this.projectData.plan,
-            phases: this.editors.phases ? this.editors.phases.value() : this.projectData.phases,
-            aiInstructions: this.editors.aiInstructions ? this.editors.aiInstructions.value() : this.projectData.aiInstructions
+            plan: this.editors.plan ? this.editors.plan.getMarkdown() : this.projectData.plan,
+            phases: this.editors.phases ? this.editors.phases.getMarkdown() : this.projectData.phases,
+            aiInstructions: this.editors.aiInstructions ? this.editors.aiInstructions.getMarkdown() : this.projectData.aiInstructions
         };
 
         Object.keys(data).forEach(key => {

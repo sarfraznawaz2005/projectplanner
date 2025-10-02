@@ -124,8 +124,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .step-header {
@@ -232,8 +239,13 @@ body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .loading-text {
@@ -350,16 +362,27 @@ body {
 }
 
 @keyframes progressFill {
-    0% { width: 0%; }
-    50% { width: 70%; }
-    100% { width: 0%; }
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 70%;
+    }
+
+    100% {
+        width: 0%;
+    }
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
+
     50% {
         transform: translate(-50%, -50%) scale(1.2);
         opacity: 0.7;
@@ -607,7 +630,8 @@ body {
     font-weight: 600;
     transition: all 0.3s ease;
     margin-right: 1rem;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
 }
 
 #skipAIInstructionsBtn:hover {
@@ -829,4 +853,10 @@ body {
         margin-top: 1.5rem;
         padding: 1.5rem;
     }
+}
+
+.toastui-editor-contents code {
+    color: #0638b9 !important;
+    background: transparent !important;
+    font-weight: bold !important;
 }

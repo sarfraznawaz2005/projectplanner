@@ -38,7 +38,7 @@ class ProjectPlannerAgent extends Agent
         $model = config('ai.model');
         $apiKey = config('ai.api_key');
         $temperature = config('ai.temperature', 0.7);
-        $maxTokens = config('ai.max_tokens', 8192);
+        $maxTokens = config('ai.max_tokens', 15000);
 
         switch ($provider) {
             case 'anthropic':
