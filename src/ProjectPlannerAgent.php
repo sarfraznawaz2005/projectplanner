@@ -9,6 +9,7 @@ use NeuronAI\Providers\Anthropic\Anthropic;
 use NeuronAI\Providers\Gemini\Gemini;
 use NeuronAI\Providers\Ollama\Ollama;
 use NeuronAI\Providers\OpenAI\OpenAI;
+use NeuronAI\SystemPrompt;
 
 class ProjectPlannerAgent extends Agent
 {
@@ -105,18 +106,26 @@ class ProjectPlannerAgent extends Agent
     public function generatePRD(string $projectName, string $projectIdea): string
     {
         $prompt = $this->promptService->buildPRDPrompt($projectName, $projectIdea);
+
+        $prompt = new SystemPrompt(background: [$prompt]);
+
         return $this->callAIAndExtractContent($prompt);
     }
 
     public function generateSDD(string $projectName, string $prdContent): string
     {
         $prompt = $this->promptService->buildSDDPrompt($projectName, $prdContent);
+        
+        $prompt = new SystemPrompt(background: [$prompt]);
+
         return $this->callAIAndExtractContent($prompt);
     }
 
     public function generateDiagram(string $projectName, string $projectIdea): ?string
     {
         $prompt = $this->promptService->buildDiagramPrompt($projectName, $projectIdea);
+
+        $prompt = new SystemPrompt(background: [$prompt]);
 
         $response = $this->chat(new UserMessage($prompt));
         $content = $response->getContent();
@@ -131,12 +140,18 @@ class ProjectPlannerAgent extends Agent
     public function generatePlan(string $projectName, string $sddContent): string
     {
         $prompt = $this->promptService->buildPlanPrompt($projectName, $sddContent);
+
+        $prompt = new SystemPrompt(background: [$prompt]);
+
         return $this->callAIAndExtractContent($prompt);
     }
 
     public function generatePhases(string $planContent): string
     {
         $prompt = $this->promptService->buildPhasesPrompt($planContent);
+
+        $prompt = new SystemPrompt(background: [$prompt]);
+        
         return $this->callAIAndExtractContent($prompt);
     }
 

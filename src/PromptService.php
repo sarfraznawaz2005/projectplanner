@@ -15,20 +15,17 @@ class PromptService
 
 Application Idea: {$projectIdea}
 
-Infer the appropriate project type, technology stack, and scale based on the idea. Consider modern development practices and industry standards.
+Infer the appropriate project type, technology stack, and scale based on the idea. Consider modern development 
+practices and industry standards.
 
 Include these sections:
-1. Executive Summary
-2. Project Overview
-3. Goals and Objectives
-4. Target Audience
-5. Functional Requirements
-6. Non-Functional Requirements
-7. User Stories
-8. Technical Requirements
-9. Constraints and Assumptions
-10. Success Metrics
-11. Risk Assessment
+
+1. Project Overview & Objectives
+2. Core Features
+3. Target Audience
+4. User Stories
+5. Constraints & Assumptions
+6. Risk Assessment
 
 Provide specific, actionable content for each section tailored to the project type.
 Use bullet points and clear descriptions.
@@ -47,20 +44,37 @@ Today's date: {$today}";
 
 {$prdContent}
 
-Design the system architecture considering modern best practices, security standards, and scalability needs. Choose appropriate technologies based on the project requirements and scale.
+You are an expert at software system design and web application architecture. Design the system design architecture 
+considering modern best practices, security standards, and scalability needs. Choose appropriate technologies 
+based on the project requirements and scale.
 
 Include these sections:
-1. System Architecture Overview
-2. Technology Stack
-3. Component Design
-4. Data Model and Database Schema
-5. API Design
-6. Security Considerations
-7. Performance Considerations
-8. Scalability Design
-9. Integration Points
-10. Deployment Architecture
-11. Testing Strategy
+
+1. Technical Requirements
+2. System Architecture Overview:
+    - Architectural Style: [monolithic, microservices, client-server, DDD, modular, event-driven, etc. that aligns with given prd]
+    - Database Type: [SQL vs NoSQL]
+    - Database System:
+    - Frontend Framwork: [reactjs, vue, inertiajs, livewrite, etc]
+    - Backend Framwork: [laravel, symfony, codeigniter, etc]
+    - Hosting/Infrastructure: [cloud provider, on-premises, serverless, containerization, etc]
+
+    Provide rationale for each choice.
+3. Functional Components
+4. Non-Functional Requirements
+5. Capacity Planning: [Make assumptions about user load based on project prd. Provide calculations and any used formula too.]
+6. System Components: [markdown table]
+7. Data Model:
+    - Entity Relationships: [must use markdown table format: `Entity 1`, `Relationship`, `Entity 2`, `Description`]
+    - Database Schema: [in SQL format]
+8. Interface Screens: [markdown table format with these fields: `Screen`, `Description`, `Key Elements`]
+9. System APIs: [markdown table]
+10. Security Considerations
+11. Performance Considerations
+12. Scalability Design
+13. Integration Points
+14. Deployment Architecture
+15. Testing Strategy
 
 Provide technical details for each section with specific recommendations.
 Use bullet points and clear descriptions.
@@ -80,17 +94,17 @@ NO MERMAID DIAGRAMS - ONLY TEXT.";
 
 {$sddContent}
 
-Structure the plan with achievable phases, realistic timelines, and appropriate resource allocation based on project complexity and technology choices.
+Structure the plan with achievable phases, realistic timelines, and appropriate resource allocation based 
+on project complexity and technology choices.
 
 Include these sections:
-1. Project Overview
-2. Technology Stack
-3. Development Phases
-4. Timeline Estimates
-5. Resource Requirements
-6. Risk Assessment and Mitigation
-7. Testing Strategy
-8. Deployment Plan
+
+1. Development Phases
+2. Timeline Estimates
+3. Resource Requirements
+4. Risk Assessment and Mitigation
+
+IMPORTANT: Always provide `Objectives` and `Deliverables` for each phase.
 
 Provide specific details for each section with time estimates and dependencies.
 Use bullet points and clear descriptions.
