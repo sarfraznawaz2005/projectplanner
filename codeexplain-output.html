@@ -1,0 +1,3017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Explanation: src</title>
+    <!-- Critical CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/cupertino.min.css">
+    
+    <!-- Critical JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <style>
+    /* Sidebar styles */
+#sidebar a:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #0056b3;
+}
+
+#sidebar a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+#sidebar .folder-toggle:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #0056b3;
+}
+
+/* Sidebar list styling */
+#sidebar ul {
+    list-style: none;
+    line-height: 1.3;
+}
+
+#sidebar li {
+    list-style: none;
+}
+
+/* Main content typography and styling */
+.explanation-content {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #495057;
+}
+
+.explanation-content h1,
+.explanation-content h2,
+.explanation-content h3,
+.explanation-content h4,
+.explanation-content h5,
+.explanation-content h6 {
+    color: #212529;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.explanation-content h1 {
+    font-size: 1.75rem;
+}
+
+.explanation-content h2 {
+    font-size: 1.5rem;
+}
+
+.explanation-content h3 {
+    font-size: 1.25rem;
+}
+
+.explanation-content h4 {
+    font-size: 1.1rem;
+}
+
+.explanation-content h5 {
+    font-size: 1rem;
+}
+
+.explanation-content h6 {
+    font-size: 0.9rem;
+}
+
+.explanation-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.explanation-content ul,
+.explanation-content ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.explanation-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.explanation-content li p {
+    margin-bottom: 0.5rem;
+}
+
+.explanation-content code {
+    background-color: #f8f9fa;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    color: #d73a49;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+.explanation-content pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.explanation-content pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+    border: none;
+}
+
+/* Ensure highlight.js styles don't conflict */
+.explanation-content pre.hljs {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Code block styling */
+.code-container pre code {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
+}
+
+/* Ensure highlight.js styles are applied to code container */
+.code-container pre code.hljs {
+    background: transparent;
+    color: inherit;
+}
+
+.explanation-content blockquote {
+    border-left: 4px solid #007bff;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.explanation-content table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+}
+
+.explanation-content th,
+.explanation-content td {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    text-align: left;
+}
+
+.explanation-content th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.explanation-content strong {
+    font-weight: 600;
+    color: #212529;
+}
+
+.explanation-content em {
+    font-style: italic;
+    color: #495057;
+}
+
+/* Card improvements */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* File name hover cursor */
+.toggle-code:hover {
+    cursor: pointer;
+}
+
+/* Navigation arrows */
+#nav-arrows {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+#nav-arrows:hover {
+    opacity: 1;
+}
+
+/* Zoom controls */
+.btn-group .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-group .btn {
+    transition: all 0.2s ease;
+}
+
+.btn-group .btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mermaid diagram controls */
+.mermaid-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    position: relative;
+    z-index: 10;
+    /* Ensure controls are above the diagram */
+    contain: layout style;
+    /* Isolate controls from diagram transforms */
+}
+
+.mermaid-controls .btn {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    border-radius: 6px;
+}
+
+.zoom-level {
+    font-weight: 600;
+    color: #495057;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Responsive mermaid containers */
+.mermaid-diagram-container {
+    position: relative;
+    overflow: hidden;
+    /* Ensure diagram doesn't overflow container */
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    background: white;
+    min-height: 200px;
+    contain: layout;
+    /* Isolate layout calculations */
+}
+
+.mermaid {
+    display: block;
+    width: 100%;
+    min-height: 200px;
+    cursor: grab;
+    transition: transform 0.1s ease;
+    position: relative;
+    z-index: 1;
+    /* Ensure diagram is below controls */
+    contain: layout style paint;
+    /* Isolate diagram from controls */
+}
+
+.mermaid svg {
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+}
+
+.mermaid.dragging {
+    cursor: grabbing;
+}
+
+.mermaid-zoomable {
+    transform-origin: center center;
+}
+
+/* Fullscreen mode */
+.mermaid-fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: white !important;
+    z-index: 9999 !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+.mermaid-fullscreen svg {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9998;
+    display: none;
+}
+
+.fullscreen-overlay.active {
+    display: block;
+}
+
+/* Responsive breakpoints for diagrams */
+@media (max-width: 768px) {
+    .mermaid-diagram-container {
+        min-height: 150px;
+    }
+
+    .mermaid svg {
+        min-height: 150px;
+    }
+
+    .mermaid-controls {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .mermaid-controls .btn {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
+    </style>
+
+    <script>
+    (function () {
+    // Constants for configuration
+    const SIDEBAR_DEFAULT_WIDTH = 280;
+    const SIDEBAR_MIN_WIDTH = 250;
+    const SIDEBAR_MAX_WIDTH = 450;
+    const MOBILE_BREAKPOINT = 768;
+    const COPY_FEEDBACK_DURATION = 2000;
+
+    // Cache DOM elements and other state (assigned in DOMContentLoaded)
+    let cachedFileEntries;
+    let cachedSidebarLinks;
+
+    // Initialize syntax highlighting
+    document.addEventListener('DOMContentLoaded', function () {
+        // Configure marked to use highlight.js for code blocks (after marked is loaded)
+        const { Marked } = window.marked;
+        const { markedHighlight } = window.markedHighlight;
+
+        // Create Marked instance with the highlight plugin
+        const markedInstance = new Marked(
+            { gfm: true },
+            markedHighlight({
+                langPrefix: 'hljs language-',
+                emptyLangClass: 'hljs',
+                highlight(code, lang) {
+                    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                    return hljs.highlight(code, { language }).value;
+                }
+            })
+        );
+
+        // Apply syntax highlighting to code blocks in AI explanations
+        if (typeof hljs !== 'undefined') {
+            document.querySelectorAll('.explanation-content pre code').forEach((block) => {
+                if (!block.classList.contains('hljs')) {
+                    hljs.highlightElement(block);
+                }
+            });
+        }
+
+        // Cache DOM elements - convert NodeList to Array for better performance
+        cachedFileEntries = Array.from(document.querySelectorAll('.file-entry'));
+        cachedSidebarLinks = document.querySelectorAll('#sidebar a[href^="#file-"]');
+
+        // Initialize layout
+        initializeLayout();
+
+        // Initial active item update
+        updateActiveSidebarItem();
+
+        // Update navigation arrows
+        updateNavigationArrows();
+
+        // Function to toggle folder icons
+        function toggleFolderIcon(folderToggle, force) {
+            const folderContents = folderToggle.nextElementSibling;
+            const folderIcon = folderToggle.querySelector('.folder-icon');
+            const isExpanded = force !== undefined ? force : !folderContents.classList.contains('d-none');
+
+            if (isExpanded) {
+                folderIcon.classList.remove('fa-chevron-right');
+                folderIcon.classList.add('fa-chevron-down');
+            } else {
+                folderIcon.classList.remove('fa-chevron-down');
+                folderIcon.classList.add('fa-chevron-right');
+            }
+        }
+
+        // Initialize folder icons for expanded folders
+        document.querySelectorAll('.folder-toggle').forEach(toggle => {
+            const folderContents = toggle.nextElementSibling;
+            if (folderContents && !folderContents.classList.contains('d-none')) {
+                toggleFolderIcon(toggle, true);
+            }
+        });
+
+        // Code folding
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.toggle-code')) {
+                const toggleElement = e.target.closest('.toggle-code');
+                const codeContainer = toggleElement.closest('.file-entry').querySelector('.code-container');
+                const icon = toggleElement.querySelector('i');
+
+                if (codeContainer.classList.contains('d-none')) {
+                    codeContainer.classList.remove('d-none');
+                    icon.classList.remove('fa-chevron-right');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    codeContainer.classList.add('d-none');
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-right');
+                }
+            }
+        });
+
+        // Copy explanation functionality
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.copy-explanation')) {
+                const button = e.target.closest('.copy-explanation');
+                const explanationContainer = button.closest('.file-entry').querySelector('.explanation-content');
+                const explanationText = explanationContainer.textContent.trim();
+
+                navigator.clipboard.writeText(explanationText).then(() => {
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                    }, COPY_FEEDBACK_DURATION);
+                });
+            }
+        });
+
+
+        // Sidebar navigation and folder toggle
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('a[href^="#file-"]')) {
+                e.preventDefault();
+                const targetId = e.target.closest('a').getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            // Folder toggle functionality
+            if (e.target.closest('.folder-toggle')) {
+                const folderToggle = e.target.closest('.folder-toggle');
+                const folderContents = folderToggle.nextElementSibling;
+                folderContents.classList.toggle('d-none');
+                toggleFolderIcon(folderToggle);
+            }
+        });
+
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('main');
+
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebar.style.transform === 'translateX(-100%)';
+            if (window.innerWidth <= 768) {
+                // Mobile: toggle between collapsed and expanded
+                if (isCollapsed) {
+                    sidebar.style.transform = 'translateX(0)';
+                    sidebar.style.opacity = '1';
+                    sidebar.style.pointerEvents = 'auto';
+                    mainContent.style.marginLeft = '280px';
+                } else {
+                    sidebar.style.transform = 'translateX(-100%)';
+                    sidebar.style.opacity = '0';
+                    sidebar.style.pointerEvents = 'none';
+                    mainContent.style.marginLeft = '0';
+                }
+            }
+        });
+
+        // Sidebar drag resizing
+        const sidebarResizer = document.getElementById('sidebar-resizer');
+        let isResizing = false;
+        let startX = 0;
+        let startWidth = 0;
+        let animationFrameId = null;
+
+        sidebarResizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            startX = e.clientX;
+            startWidth = sidebar.offsetWidth;
+            document.body.style.cursor = 'ew-resize';
+            document.body.style.userSelect = 'none';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+
+            // Cancel any pending animation frame
+            if (animationFrameId !== null) {
+                cancelAnimationFrame(animationFrameId);
+            }
+
+            // Schedule update on next animation frame
+            animationFrameId = requestAnimationFrame(() => {
+                const newWidth = startWidth + (e.clientX - startX);
+                const clampedWidth = Math.max(SIDEBAR_MIN_WIDTH, Math.min(SIDEBAR_MAX_WIDTH, newWidth));
+
+                sidebar.style.width = `${clampedWidth}px`;
+                mainContent.style.marginLeft = `${clampedWidth}px`;
+                mainContent.style.width = `calc(100% - ${clampedWidth}px)`;
+                animationFrameId = null;
+            });
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+        });
+
+        // Handle window resize using the shared layout function
+        window.addEventListener('resize', () => {
+            applyLayoutStyles(window.innerWidth <= MOBILE_BREAKPOINT);
+        });
+
+        // Navigation arrow event listeners
+        document.getElementById('prev-file').addEventListener('click', () => {
+            const currentFile = getCurrentVisibleFile();
+            const prevFile = getPreviousFile(currentFile);
+            if (prevFile) {
+                prevFile.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        document.getElementById('next-file').addEventListener('click', () => {
+            const currentFile = getCurrentVisibleFile();
+            const nextFile = getNextFile(currentFile);
+            if (nextFile) {
+                nextFile.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Use requestAnimationFrame for smoother scroll performance
+        let isScrolling = false;
+        window.addEventListener('scroll', function () {
+            if (!isScrolling) {
+                window.requestAnimationFrame(function () {
+                    updateActiveSidebarItem();
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        });
+
+    });
+
+    // Shared function to apply layout styles based on screen size
+    function applyLayoutStyles(isMobile) {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const mainContent = document.querySelector('main');
+
+        if (isMobile) {
+            sidebarToggle.classList.remove('d-none');
+            if (sidebar.style.transform !== 'translateX(-100%)') {
+                sidebar.style.transform = 'translateX(-100%)';
+                sidebar.style.opacity = '0';
+                sidebar.style.pointerEvents = 'none';
+                mainContent.style.marginLeft = '0';
+                mainContent.style.width = '100%';
+            }
+        } else {
+            sidebarToggle.classList.add('d-none');
+            sidebar.style.transform = 'translateX(0)';
+            sidebar.style.opacity = '1';
+            sidebar.style.pointerEvents = 'auto';
+            const currentWidth = sidebar.offsetWidth || SIDEBAR_DEFAULT_WIDTH;
+            mainContent.style.marginLeft = `${currentWidth}px`;
+            mainContent.style.width = `calc(100% - ${currentWidth}px)`;
+        }
+    }
+
+    // Initialize layout on page load
+    function initializeLayout() {
+        applyLayoutStyles(window.innerWidth <= MOBILE_BREAKPOINT);
+    }
+
+    // Helper function to find the most visible element from a list of elements
+    function getMostVisibleElement(elements) {
+        let mostVisibleElement = null;
+        let maxVisibility = 0;
+
+        elements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Calculate how much of the element is visible
+            const visibleTop = Math.max(0, rect.top);
+            const visibleBottom = Math.min(windowHeight, rect.bottom);
+            const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+            const visibility = visibleHeight / rect.height;
+
+            if (visibility > maxVisibility) {
+                maxVisibility = visibility;
+                mostVisibleElement = element;
+            }
+        });
+
+        return mostVisibleElement;
+    }
+
+    // Auto-sync sidebar with scroll position
+    function updateActiveSidebarItem() {
+        // Remove active class from all sidebar links
+        cachedSidebarLinks.forEach(link => link.classList.remove('active'));
+
+        // Find which file entry is currently most visible
+        const mostVisibleEntry = getMostVisibleElement(cachedFileEntries);
+
+        // Highlight the corresponding sidebar item
+        if (mostVisibleEntry) {
+            const fileIndex = mostVisibleEntry.getAttribute('data-file-index');
+            const correspondingLink = document.querySelector('#sidebar a[href="#file-' + fileIndex + '"]');
+            if (correspondingLink) {
+                correspondingLink.classList.add('active');
+            }
+        }
+    }
+
+    // Navigation arrow functionality
+    function getCurrentVisibleFile() {
+        return getMostVisibleElement(cachedFileEntries);
+    }
+
+    function getPreviousFile(currentFile) {
+        if (!currentFile) return null;
+        const currentIndex = cachedFileEntries.indexOf(currentFile);
+        return currentIndex > 0 ? cachedFileEntries[currentIndex - 1] : null;
+    }
+
+    function getNextFile(currentFile) {
+        if (!currentFile) return null;
+        const currentIndex = cachedFileEntries.indexOf(currentFile);
+        return currentIndex < cachedFileEntries.length - 1 ? cachedFileEntries[currentIndex + 1] : null;
+    }
+
+    // Show/hide navigation arrows based on file count
+    function updateNavigationArrows() {
+        const fileCount = cachedFileEntries.length;
+        const navArrows = document.getElementById('nav-arrows');
+        if (fileCount > 1) {
+            navArrows.classList.remove('d-none');
+        } else {
+            navArrows.classList.add('d-none');
+        }
+    }
+
+})();
+
+    
+    </script>    
+</head>
+    <body class="bg-light text-dark" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+    <div id="app" class="vh-100">
+        <!-- Header -->
+        <header class="bg-white shadow-sm position-fixed top-0 start-0 w-100 border-bottom" style="z-index: 1030; backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.95);">
+            <div class="container-fluid py-3 px-4">
+                <div class="row align-items-center">
+                    <div class="col-auto d-flex align-items-center">
+                        <i class="fas fa-code text-primary me-3 fs-4"></i>
+                         <h1 class="h5 fw-bold text-dark mb-0">Code Explanation: <span class="text-primary fw-semibold">src</span></h1>
+                    </div>
+                    <div class="col text-center d-none d-md-block">
+                        <small class="text-muted">AI-Powered Code Explanation</small>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+        
+        <!-- Sidebar Toggle Button (Mobile) -->
+        <button id="sidebar-toggle" class="btn btn-primary position-fixed d-none" style="top: 16px; left: 16px; z-index: 1030;" title="Toggle Sidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Sidebar Navigation -->
+        <aside class="position-fixed bg-white border-end" id="sidebar" style="width: 280px; height: calc(100vh - 64px); top: 64px; left: 0; transform: translateX(-100%); opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 1000;">
+            <div class="position-absolute" style="top: 0; right: 0; width: 5px; height: 100%; cursor: ew-resize; background: rgba(0,0,0,0.1);" id="sidebar-resizer"></div>
+            <div class="p-3 border-bottom">
+                <h2 class="h6 fw-bold mb-0 text-muted d-flex align-items-center">
+                    <i class="fas fa-folder-tree me-2"></i>
+                    Project Files
+                </h2>
+            </div>
+            <div class="sidebar-content" style="height: calc(100% - 60px); overflow-y: auto;">
+                <ul class="list-unstyled p-2">
+                                    <li><a href="#file-0" class="d-block py-1 px-2 text-decoration-none rounded">DiagramGenerator.php</a></li>
+                <li><a href="#file-1" class="d-block py-1 px-2 text-decoration-none rounded">DocumentService.php</a></li>
+                <li><a href="#file-2" class="d-block py-1 px-2 text-decoration-none rounded">FileService.php</a></li>
+                <li><a href="#file-3" class="d-block py-1 px-2 text-decoration-none rounded">ProjectPlannerAgent.php</a></li>
+                <li><a href="#file-4" class="d-block py-1 px-2 text-decoration-none rounded">PromptService.php</a></li>
+
+                </ul>
+            </div>
+        </aside>
+        
+
+        <!-- Main Content -->
+        <main style="margin-left: 280px; margin-top: 96px; padding: 2rem; transition: margin-left 0.3s ease; width: calc(100% - 280px); min-height: calc(100vh - 96px);">
+            <div class="container-fluid">
+                <!-- File Entries -->
+                <div id="file-entries" class="row g-4">
+                    
+<div class="file-entry col-12 mb-4" id="file-0" data-file-path="D:\laragon\www\ProjectPlanner\src\DiagramGenerator.php" data-file-index="0">
+    <div class="card shadow-sm border-0 h-100" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-header bg-gradient-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 1rem 1.5rem;">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="toggle-code h5 fw-semibold mb-0 cursor-pointer d-flex align-items-center text-white" data-file-index="0" style="font-size: 1.1rem;">
+                    <i class="fas fa-chevron-right me-2 transition-transform duration-200"></i>
+                    <i class="fas fa-file-code me-2"></i>
+                    DiagramGenerator.php
+                </h2>
+                <span class="badge bg-white bg-opacity-25 text-white px-2 py-1" style="font-size: 0.75rem;">
+                    php
+                </span>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+              <div class="code-container bg-light border-bottom d-none" style="max-height: 400px; overflow: auto;">
+                  <div class="p-3">
+                      <pre class="mb-0"><code class="language-php" style="font-size: 0.9rem; line-height: 1.5;">
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">ProjectPlanner</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DiagramGenerator</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Generate PNG diagram from DOT code
+     * <span class="hljs-doctag">@param</span> string $dotCode
+     * <span class="hljs-doctag">@return</span> string|null Base64 encoded PNG data or null on failure
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generatePngFromDot</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$dotCode</span></span>): ?<span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$dotCode</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        }
+
+        <span class="hljs-variable">$tempDir</span> = <span class="hljs-title function_ invoke__">sys_get_temp_dir</span>();
+        <span class="hljs-variable">$inputFile</span> = <span class="hljs-title function_ invoke__">tempnam</span>(<span class="hljs-variable">$tempDir</span>, <span class="hljs-string">&#x27;diagram_&#x27;</span>) . <span class="hljs-string">&#x27;.dot&#x27;</span>;
+        <span class="hljs-variable">$outputFile</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;.dot&#x27;</span>, <span class="hljs-string">&#x27;.png&#x27;</span>, <span class="hljs-variable">$inputFile</span>);
+
+        <span class="hljs-comment">// Write DOT code to file</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$inputFile</span>, <span class="hljs-variable">$dotCode</span>) === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        }
+
+        <span class="hljs-comment">// Generate PNG using dot command</span>
+        <span class="hljs-variable">$dotPath</span> = <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;graphviz.path&#x27;</span>, <span class="hljs-string">&#x27;C:\\Program Files\\Graphviz\\bin\\dot.exe&#x27;</span>);
+        <span class="hljs-comment">// Use higher DPI and better quality settings</span>
+        <span class="hljs-variable">$command</span> = <span class="hljs-string">&quot;\&quot;<span class="hljs-subst">$dotPath</span>\&quot; -Tpng -Gdpi=150 -Gsize=10,8! \&quot;<span class="hljs-subst">$inputFile</span>\&quot; -o \&quot;<span class="hljs-subst">$outputFile</span>\&quot; 2&gt;&amp;1&quot;</span>;
+        <span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-variable">$command</span>, <span class="hljs-variable">$output</span>, <span class="hljs-variable">$returnCode</span>);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$returnCode</span> !== <span class="hljs-number">0</span> || !<span class="hljs-title function_ invoke__">file_exists</span>(<span class="hljs-variable">$outputFile</span>)) {
+            <span class="hljs-comment">// Log error for debugging</span>
+            <span class="hljs-title function_ invoke__">error_log</span>(<span class="hljs-string">&#x27;Graphviz error: &#x27;</span> . <span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-variable">$output</span>));
+            <span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-variable">$inputFile</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        }
+
+        <span class="hljs-variable">$pngData</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$outputFile</span>);
+
+        <span class="hljs-comment">// Cleanup</span>
+        <span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-variable">$inputFile</span>);
+        <span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-variable">$outputFile</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$pngData</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Extract DOT code from AI response
+     * <span class="hljs-doctag">@param</span> string $content
+     * <span class="hljs-doctag">@return</span> string
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extractDotCode</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$content</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-comment">// Look for DOT code in code blocks</span>
+        <span class="hljs-variable">$pattern</span> = <span class="hljs-string">&#x27;/```(?:dot|graphviz)?\s*(.*?)\s*```/s&#x27;</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-variable">$pattern</span>, <span class="hljs-variable">$content</span>, <span class="hljs-variable">$matches</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$matches</span>[<span class="hljs-number">1</span>]);
+        }
+
+        <span class="hljs-comment">// If no code blocks, look for digraph keyword</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/\bdigraph\s+\w+\s*\{.*\}/s&#x27;</span>, <span class="hljs-variable">$content</span>, <span class="hljs-variable">$matches</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$matches</span>[<span class="hljs-number">0</span>]);
+        }
+
+        <span class="hljs-comment">// Return the whole content if it looks like DOT</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$content</span>, <span class="hljs-string">&#x27;digraph&#x27;</span>) === <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$content</span>);
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$content</span>;
+    }
+}
+                      </code></pre>
+                  </div>
+              </div>
+
+            <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 text-muted mb-0 d-flex align-items-center">
+                        <i class="fas fa-brain me-2 text-primary"></i>
+                        AI Explanation
+                    </h3>
+                    <button class="btn btn-outline-primary btn-sm copy-explanation" data-file-index="0" title="Copy explanation">
+                        <i class="fas fa-copy me-1"></i> Copy
+                    </button>
+                </div>
+                <div class="explanation-content">
+                    <p>Let&#39;s break down this PHP code file, <code>DiagramGenerator.php</code>, step by step. Imagine we&#39;re building a tool that helps create diagrams, especially from text descriptions.</p>
+<h3>What is this file about?</h3>
+<p>This file defines a <code>class</code> called <code>DiagramGenerator</code>. Think of a class as a blueprint or a recipe for creating specific objects that can do certain tasks. In this case, <code>DiagramGenerator</code> is designed to:</p>
+<ol>
+<li>Take a special kind of text code (called &quot;DOT code&quot;) and turn it into a visual image file (like a PNG diagram).</li>
+<li>Find and extract this &quot;DOT code&quot; from a longer piece of text, for example, from an AI&#39;s response.</li>
+</ol>
+<h3>The Code Explained</h3>
+<pre><code class="language-php">&lt;?php
+
+namespace ProjectPlanner;
+</code></pre>
+<ul>
+<li><strong><code>&lt;?php</code></strong>: This is the standard opening tag for any PHP code. It tells the server that everything that follows is PHP code.</li>
+<li><strong><code>namespace ProjectPlanner;</code></strong>: This line defines a &quot;namespace&quot; for our class. Think of a namespace like a family name or a folder. It helps organize your code and prevents naming conflicts if you have multiple classes with the same name across different parts of a large project. Here, our <code>DiagramGenerator</code> class belongs to the <code>ProjectPlanner</code> family.</li>
+</ul>
+<hr>
+<pre><code class="language-php">class DiagramGenerator
+{
+    /**
+     * Generate PNG diagram from DOT code
+     * @param string $dotCode
+     * @return string|null Base64 encoded PNG data or null on failure
+     */
+    public function generatePngFromDot(string $dotCode): ?string
+    {
+        // ... (code inside this method)
+    }
+
+    /**
+     * Extract DOT code from AI response
+     * @param string $content
+     * @return string
+     */
+    public function extractDotCode(string $content): string
+    {
+        // ... (code inside this method)
+    }
+}
+</code></pre>
+<ul>
+<li><strong><code>class DiagramGenerator</code></strong>: This declares our class. It&#39;s the blueprint.</li>
+<li>Inside the class, we have two <code>public function</code>s. These are called <strong>methods</strong>. Methods are like actions or capabilities that objects created from this blueprint can perform.</li>
+<li><strong><code>/** ... */</code></strong>: These blocks are called &quot;DocBlocks&quot; (short for documentation blocks). They are comments that describe what the method does, what kind of information it expects (<code>@param</code>), and what kind of information it returns (<code>@return</code>). This is very helpful for other developers (and your future self!) to understand the code.</li>
+</ul>
+<p>Let&#39;s look at each method in detail:</p>
+<hr>
+<h3>Method 1: <code>generatePngFromDot</code></h3>
+<p>This method takes DOT code (a text-based language for describing graphs and diagrams) and uses an external program called Graphviz (specifically, its <code>dot</code> command) to turn it into a PNG image.</p>
+<pre><code class="language-php">    public function generatePngFromDot(string $dotCode): ?string
+    {
+        if (empty($dotCode)) {
+            return null; // If no DOT code is provided, we can&#39;t do anything.
+        }
+
+        // --- Preparing temporary files ---
+        $tempDir = sys_get_temp_dir(); // Get the system&#39;s temporary directory (e.g., C:\Windows\Temp on Windows)
+        $inputFile = tempnam($tempDir, &#39;diagram_&#39;) . &#39;.dot&#39;; // Create a unique temporary filename for our DOT code (e.g., C:\Windows\Temp\diagram_abcdef.dot)
+        $outputFile = str_replace(&#39;.dot&#39;, &#39;.png&#39;, $inputFile); // Create a corresponding unique filename for the output PNG (e.g., C:\Windows\Temp\diagram_abcdef.png)
+
+        // --- Writing DOT code to a temporary file ---
+        if (file_put_contents($inputFile, $dotCode) === false) {
+            return null; // If we can&#39;t write the DOT code to the temporary file, something went wrong.
+        }
+
+        // --- Running the Graphviz &#39;dot&#39; command ---
+        // Get the path to the &#39;dot&#39; executable. It first tries to get it from a &#39;config&#39; setting
+        // (common in frameworks like Laravel). If not found, it uses a default path for Windows.
+        $dotPath = config(&#39;graphviz.path&#39;, &#39;C:\\Program Files\\Graphviz\\bin\\dot.exe&#39;);
+
+        // Construct the command to run.
+        // &quot;\&quot;$dotPath\&quot;&quot;: Path to the dot executable (quoted in case of spaces in the path).
+        // &quot;-Tpng&quot;: Tell dot to output in PNG format.
+        // &quot;-Gdpi=150 -Gsize=10,8!&quot;: These are Graphviz settings for higher quality:
+        //    -Gdpi=150 sets dots per inch for better resolution.
+        //    -Gsize=10,8! sets the maximum width and height in inches, the &#39;!&#39; forces the size.
+        // &quot;\&quot;$inputFile\&quot;&quot;: Input DOT file (quoted).
+        // &quot;-o \&quot;$outputFile\&quot;&quot;: Output PNG file (quoted).
+        // &quot;2&gt;&amp;1&quot;: This is a special part of command line syntax. It redirects any error messages
+        //         (which normally go to &quot;standard error&quot; stream 2) to the same place as standard output
+        //         (stream 1). This ensures `exec` captures both regular output and errors.
+        $command = &quot;\&quot;$dotPath\&quot; -Tpng -Gdpi=150 -Gsize=10,8! \&quot;$inputFile\&quot; -o \&quot;$outputFile\&quot; 2&gt;&amp;1&quot;;
+
+        // Execute the command!
+        // `exec` runs a command on the server&#39;s operating system.
+        // $output: An array where each line of the command&#39;s output will be stored.
+        // $returnCode: An integer representing the command&#39;s exit status (0 usually means success).
+        exec($command, $output, $returnCode);
+
+        // --- Checking for errors after running the command ---
+        if ($returnCode !== 0 || !file_exists($outputFile)) {
+            // If the command failed (returnCode is not 0) or the output file doesn&#39;t exist, it&#39;s an error.
+            error_log(&#39;Graphviz error: &#39; . implode(&quot;\n&quot;, $output)); // Log the error messages for debugging.
+            unlink($inputFile); // Clean up the temporary input file.
+            return null; // Return null to indicate failure.
+        }
+
+        // --- Reading the generated PNG data ---
+        $pngData = file_get_contents($outputFile); // Read the contents of the generated PNG file.
+
+        // --- Cleaning up temporary files ---
+        unlink($inputFile); // Delete the temporary DOT input file.
+        unlink($outputFile); // Delete the temporary PNG output file.
+
+        return $pngData; // Return the raw PNG data (as a string).
+    }
+</code></pre>
+<p><strong>Explanation of <code>generatePngFromDot</code>:</strong></p>
+<ol>
+<li><p><strong><code>public function generatePngFromDot(string $dotCode): ?string</code></strong>:</p>
+<ul>
+<li><code>public</code>: This method can be called from anywhere outside this class.</li>
+<li><code>string $dotCode</code>: This method expects one piece of information, a string of text representing the DOT code. The <code>string</code> part is a &quot;type hint&quot; – it helps make sure we pass the right kind of data.</li>
+<li><code>?string</code>: This means the method will return either a <code>string</code> (the PNG data) or <code>null</code> (if something went wrong).</li>
+</ul>
+</li>
+<li><p><strong><code>if (empty($dotCode)) { return null; }</code></strong>: A basic check. If there&#39;s no DOT code to work with, it immediately stops and returns <code>null</code>.</p>
+</li>
+<li><p><strong>Temporary Files</strong>:</p>
+<ul>
+<li><code>sys_get_temp_dir()</code>: Finds a directory on the server where temporary files can be safely stored.</li>
+<li><code>tempnam($tempDir, &#39;diagram_&#39;)</code>: Creates a unique temporary filename within that directory (e.g., <code>diagram_ajh1k2l3</code>). We add <code>.dot</code> to make it a <code>.dot</code> file.</li>
+<li><code>str_replace(&#39;.dot&#39;, &#39;.png&#39;, $inputFile)</code>: Creates another unique filename for the output PNG, based on the input file&#39;s name.</li>
+</ul>
+</li>
+<li><p><strong><code>file_put_contents($inputFile, $dotCode)</code></strong>: Writes the <code>$dotCode</code> (the text you provided) into the temporary <code>.dot</code> file. If this fails (e.g., no write permissions), it returns <code>null</code>.</p>
+</li>
+<li><p><strong>Running Graphviz (<code>exec</code> command)</strong>:</p>
+<ul>
+<li><code>$dotPath = config(&#39;graphviz.path&#39;, &#39;C:\\Program Files\\Graphviz\\bin\\dot.exe&#39;);</code>: This is crucial. It finds the location of the <code>dot.exe</code> program. <code>config()</code> is likely a helper function from a framework (like Laravel) to get application settings. If the setting isn&#39;t found, it defaults to a common path for Graphviz on Windows.</li>
+<li><code>$command = &quot;...&quot;</code>: This builds the actual command line instruction. It tells the <code>dot</code> program:<ul>
+<li><code>-Tpng</code>: &quot;Output a PNG image.&quot;</li>
+<li><code>-Gdpi=150 -Gsize=10,8!</code>: &quot;Make the image high resolution (150 DPI) and fit within 10x8 inches.&quot;</li>
+<li><code>&quot;$inputFile&quot;</code>: &quot;Use this <code>.dot</code> file as input.&quot;</li>
+<li><code>-o &quot;$outputFile&quot;</code>: &quot;Save the output image to this <code>.png</code> file.&quot;</li>
+<li><code>2&gt;&amp;1</code>: &quot;Send any error messages to the same place as regular output.&quot;</li>
+</ul>
+</li>
+<li><code>exec($command, $output, $returnCode)</code>: PHP runs the <code>$command</code> on the server&#39;s operating system.<ul>
+<li><code>$output</code> will contain any text outputted by the <code>dot</code> command (e.g., warning messages).</li>
+<li><code>$returnCode</code> tells us if the command ran successfully (<code>0</code> usually means success, anything else means an error).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Error Handling</strong>:</p>
+<ul>
+<li>If <code>$returnCode</code> is not <code>0</code> or if the <code>$outputFile</code> doesn&#39;t even exist, it means <code>dot.exe</code> failed to generate the image.</li>
+<li><code>error_log(...)</code>: Writes an error message to the server&#39;s error log, which is helpful for debugging.</li>
+<li><code>unlink($inputFile)</code>: Deletes the temporary <code>.dot</code> file, as it&#39;s no longer needed.</li>
+<li><code>return null</code>: Indicates failure.</li>
+</ul>
+</li>
+<li><p><strong><code>$pngData = file_get_contents($outputFile);</code></strong>: If everything went well, this reads the entire content of the generated PNG file into the <code>$pngData</code> variable. This content <em>is</em> the PNG image, just in raw binary form.</p>
+</li>
+<li><p><strong>Cleanup</strong>:</p>
+<ul>
+<li><code>unlink($inputFile);</code> and <code>unlink($outputFile);</code>: It&#39;s very important to delete the temporary files once we&#39;re done with them to keep the server tidy.</li>
+</ul>
+</li>
+<li><p><strong><code>return $pngData;</code></strong>: The method returns the raw PNG image data.</p>
+</li>
+</ol>
+<hr>
+<h3>Method 2: <code>extractDotCode</code></h3>
+<p>This method helps find and pull out the DOT code from a larger block of text, especially if that text is an AI response that might include other explanations or formatting.</p>
+<pre><code class="language-php">    public function extractDotCode(string $content): string
+    {
+        // --- Strategy 1: Look for DOT code inside &quot;code blocks&quot; (like in Markdown) ---
+        // The pattern looks for text like:
+        // ```dot
+        // digraph G { A -&gt; B; }
+        // ```
+        // or
+        // ```graphviz
+        // digraph G { A -&gt; B; }
+        // ```
+        // or just
+        // ```
+        // digraph G { A -&gt; B; }
+        // ```
+        $pattern = &#39;/```(?:dot|graphviz)?\s*(.*?)\s*```/s&#39;;
+
+        // `preg_match` tries to find the pattern in the content.
+        // If found, the matching parts are stored in $matches.
+        if (preg_match($pattern, $content, $matches)) {
+            return trim($matches[1]); // Return the content found inside the code block.
+        }
+
+        // --- Strategy 2: If no code blocks, look for the &#39;digraph&#39; keyword ---
+        // This pattern looks for &quot;digraph&quot; followed by a word, then an opening brace &#39;{&#39;,
+        // anything in between, and a closing brace &#39;}&#39;.
+        if (preg_match(&#39;/\bdigraph\s+\w+\s*\{.*\}/s&#39;, $content, $matches)) {
+            return trim($matches[0]); // Return the whole matched digraph block.
+        }
+
+        // --- Strategy 3: If content starts directly with &#39;digraph&#39; ---
+        // This is a simpler check if the content *begins* with &quot;digraph&quot;.
+        if (strpos($content, &#39;digraph&#39;) === 0) {
+            return trim($content); // Assume the whole content is DOT code.
+        }
+
+        return $content; // If none of the above, just return the original content.
+    }
+</code></pre>
+<p><strong>Explanation of <code>extractDotCode</code>:</strong></p>
+<ol>
+<li><p><strong><code>public function extractDotCode(string $content): string</code></strong>:</p>
+<ul>
+<li><code>string $content</code>: This method expects a string of text (e.g., the AI&#39;s response).</li>
+<li><code>string</code>: This method will always return a string (the extracted DOT code, or the original content if no DOT code is found). It will never return <code>null</code>.</li>
+</ul>
+</li>
+<li><p><em><em>`$pattern = &#39;/```(?:dot|graphviz)?\s</em>(.*?)\s</em>```/s&#39;;`**: This is a &quot;regular expression&quot; (often shortened to regex). Regular expressions are powerful patterns used to search and manipulate text.</p>
+<ul>
+<li><code>/ ... /s</code>: Defines the start and end of the pattern. The <code>s</code> at the end means &quot;dot matches newline,&quot; which is useful when working with multi-line text.</li>
+<li><pre><code class="language-:">
+</code></pre>
+</li>
+<li><code>(?:dot|graphviz)?</code>: This is an optional (the <code>?</code> makes it optional) group that matches either <code>dot</code> or <code>graphviz</code>. So it can find <code>dot` or </code>graphviz`.</li>
+<li><code>\s*</code>: Matches any whitespace characters (spaces, tabs, newlines) zero or more times.</li>
+<li><code>(.*?)</code>: This is the most important part! It&#39;s a &quot;capturing group&quot; that matches <em>any character</em> (<code>.</code>) zero or more times (<code>*</code>) in a &quot;non-greedy&quot; way (<code>?</code>). This means it will match the smallest possible string until it finds the next part of the pattern (the closing three backticks). Whatever it matches here will be stored in <code>$matches[1]</code>.</li>
+<li><pre><code class="language-:">
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong><code>if (preg_match($pattern, $content, $matches))</code></strong>:</p>
+<ul>
+<li><code>preg_match()</code> is a PHP function that tries to find a match for the <code>$pattern</code> within the <code>$content</code>.</li>
+<li>If a match is found, it returns <code>true</code>, and the <code>$matches</code> array will be filled:<ul>
+<li><code>$matches[0]</code> contains the entire matched string (e.g., ````dot\ndigraph G { A -&gt; B; }\n```).</li>
+<li><code>$matches[1]</code> contains the content of the <em>first capturing group</em> (the <code>(.*?)</code>), which is exactly the DOT code we want.</li>
+</ul>
+</li>
+<li><code>return trim($matches[1]);</code>: <code>trim()</code> removes any extra whitespace (like spaces or newlines) from the beginning and end of the extracted DOT code.</li>
+</ul>
+</li>
+<li><p><strong><code>if (preg_match(&#39;/\bdigraph\s+\w+\s*\{.*\}/s&#39;, $content, $matches))</code></strong>: This is a fallback if no code blocks are found.</p>
+<ul>
+<li><code>\bdigraph\s+\w+\s*\{.*\}</code>: This pattern looks for:<ul>
+<li><code>\bdigraph</code>: The word &quot;digraph&quot; (<code>\b</code> ensures it&#39;s a whole word).</li>
+<li><code>\s+</code>: One or more whitespace characters.</li>
+<li><code>\w+</code>: One or more &quot;word&quot; characters (for the diagram&#39;s name).</li>
+<li><code>\s*</code>: Zero or more whitespace characters.</li>
+<li><code>\{</code>: An opening curly brace.</li>
+<li><code>.*</code>: Any characters zero or more times (greedy, but usually fine here).</li>
+<li><code>\}</code>: A closing curly brace.</li>
+</ul>
+</li>
+<li><code>return trim($matches[0]);</code>: Here, we return the entire match (<code>$matches[0]</code>) because the pattern is designed to capture the whole <code>digraph { ... }</code> block.</li>
+</ul>
+</li>
+<li><p><strong><code>if (strpos($content, &#39;digraph&#39;) === 0)</code></strong>: Another simpler fallback.</p>
+<ul>
+<li><code>strpos($content, &#39;digraph&#39;)</code>: Checks if the string <code>digraph</code> exists in <code>$content</code>.</li>
+<li><code>=== 0</code>: Specifically checks if <code>digraph</code> is found at the very <em>beginning</em> of the string (index 0). If it is, we assume the whole content is DOT code.</li>
+</ul>
+</li>
+<li><p><strong><code>return $content;</code></strong>: If none of the more specific patterns match, the method just returns the original <code>$content</code>. This is a safe default, even if it might not be perfect DOT code.</p>
+</li>
+</ol>
+<hr>
+<h3>In Summary</h3>
+<p>This <code>DiagramGenerator</code> class provides a neat way to:</p>
+<ul>
+<li><strong>Parse and extract</strong> structured diagram code (DOT language) from potentially messy text (like AI generated responses).</li>
+<li><strong>Generate actual image files</strong> (PNG diagrams) from that DOT code by interacting with an external command-line tool (Graphviz&#39;s <code>dot.exe</code>).</li>
+<li>It handles temporary files and cleans up after itself, making sure your server stays tidy.</li>
+</ul>
+<p>It&#39;s a great example of how PHP can be used to orchestrate different tools and tasks to achieve a more complex goal, like turning text into visual diagrams!</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="file-entry col-12 mb-4" id="file-1" data-file-path="D:\laragon\www\ProjectPlanner\src\DocumentService.php" data-file-index="1">
+    <div class="card shadow-sm border-0 h-100" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-header bg-gradient-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 1rem 1.5rem;">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="toggle-code h5 fw-semibold mb-0 cursor-pointer d-flex align-items-center text-white" data-file-index="1" style="font-size: 1.1rem;">
+                    <i class="fas fa-chevron-right me-2 transition-transform duration-200"></i>
+                    <i class="fas fa-file-code me-2"></i>
+                    DocumentService.php
+                </h2>
+                <span class="badge bg-white bg-opacity-25 text-white px-2 py-1" style="font-size: 0.75rem;">
+                    php
+                </span>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+              <div class="code-container bg-light border-bottom d-none" style="max-height: 400px; overflow: auto;">
+                  <div class="p-3">
+                      <pre class="mb-0"><code class="language-php" style="font-size: 0.9rem; line-height: 1.5;">
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">ProjectPlanner</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">ProjectPlanner</span>\<span class="hljs-title">ProjectPlannerAgent</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentService</span>
+</span>{
+    <span class="hljs-keyword">private</span> ProjectPlannerAgent <span class="hljs-variable">$agent</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">ProjectPlannerAgent <span class="hljs-variable">$agent</span></span>)
+    </span>{
+        <span class="hljs-variable language_">$this</span>-&gt;agent = <span class="hljs-variable">$agent</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Generate complete project documentation workflow
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateProjectDocumentation</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$projectIdea</span></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-variable">$documents</span> = [];
+
+        <span class="hljs-comment">// Generate PRD</span>
+        <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;prd&#x27;</span>] = <span class="hljs-variable language_">$this</span>-&gt;agent-&gt;<span class="hljs-title function_ invoke__">generatePRD</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$projectIdea</span>);
+
+        <span class="hljs-comment">// Generate SDD based on PRD</span>
+        <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;sdd&#x27;</span>] = <span class="hljs-variable language_">$this</span>-&gt;agent-&gt;<span class="hljs-title function_ invoke__">generateSDD</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;prd&#x27;</span>]);
+
+        <span class="hljs-comment">// Generate Plan based on SDD</span>
+        <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;plan&#x27;</span>] = <span class="hljs-variable language_">$this</span>-&gt;agent-&gt;<span class="hljs-title function_ invoke__">generatePlan</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;sdd&#x27;</span>]);
+
+        <span class="hljs-comment">// Generate Phases based on Plan</span>
+        <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;phases&#x27;</span>] = <span class="hljs-variable language_">$this</span>-&gt;agent-&gt;<span class="hljs-title function_ invoke__">generatePhases</span>(<span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;plan&#x27;</span>]);
+
+        <span class="hljs-comment">// Generate AI Instructions</span>
+        <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;aiInstructions&#x27;</span>] = <span class="hljs-variable language_">$this</span>-&gt;agent-&gt;<span class="hljs-title function_ invoke__">generateAIInstructions</span>(<span class="hljs-variable">$projectName</span>);
+
+        <span class="hljs-comment">// Generate System Architecture Diagram</span>
+        <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;systemArchDiagram&#x27;</span>] = <span class="hljs-variable language_">$this</span>-&gt;agent-&gt;<span class="hljs-title function_ invoke__">generateDiagram</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$projectIdea</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$documents</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Validate project input data
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validateProjectInput</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$name</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$idea</span></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">empty</span>(<span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$name</span>))) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">\InvalidArgumentException</span>(<span class="hljs-string">&#x27;Project name is required&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">empty</span>(<span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$idea</span>))) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">\InvalidArgumentException</span>(<span class="hljs-string">&#x27;Project idea is required&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$name</span>) &gt; <span class="hljs-number">100</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">\InvalidArgumentException</span>(<span class="hljs-string">&#x27;Project name must be less than 100 characters&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$idea</span>) &gt; <span class="hljs-number">10000</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">\InvalidArgumentException</span>(<span class="hljs-string">&#x27;Project idea must be less than 10,000 characters&#x27;</span>);
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Sanitize project input data
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sanitizeProjectInput</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$name</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$idea</span></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;name&#x27;</span> =&gt; <span class="hljs-title function_ invoke__">strip_tags</span>(<span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$name</span>)),
+            <span class="hljs-string">&#x27;idea&#x27;</span> =&gt; <span class="hljs-title function_ invoke__">strip_tags</span>(<span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$idea</span>))
+        ];
+    }
+}
+                      </code></pre>
+                  </div>
+              </div>
+
+            <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 text-muted mb-0 d-flex align-items-center">
+                        <i class="fas fa-brain me-2 text-primary"></i>
+                        AI Explanation
+                    </h3>
+                    <button class="btn btn-outline-primary btn-sm copy-explanation" data-file-index="1" title="Copy explanation">
+                        <i class="fas fa-copy me-1"></i> Copy
+                    </button>
+                </div>
+                <div class="explanation-content">
+                    <p>Hey there, aspiring developer! Let&#39;s break down this PHP code file step by step. Don&#39;t worry, we&#39;ll go through it slowly and clearly.</p>
+<hr>
+<h3>File Location: <code>D:\laragon\www\ProjectPlanner\src\DocumentService.php</code></h3>
+<p>This just tells us where this specific code file lives on a computer. In a web project, <code>www</code> usually holds all the website files. <code>ProjectPlanner</code> is likely the name of the main project, and <code>src</code> often stands for &quot;source&quot; code – where the main logic lives.</p>
+<hr>
+<h3>The Code Explained:</h3>
+<pre><code class="language-php">&lt;?php
+</code></pre>
+<p>This is the <strong>opening PHP tag</strong>. Every PHP file must start with this tag to tell the server that the following code is PHP and should be processed as such.</p>
+<hr>
+<pre><code class="language-php">namespace ProjectPlanner;
+</code></pre>
+<ul>
+<li><strong><code>namespace</code></strong>: Think of a namespace as a way to organize your code and prevent naming conflicts. Imagine you have two different classes named <code>User</code> in different parts of your application. Without namespaces, PHP wouldn&#39;t know which <code>User</code> class you&#39;re talking about.</li>
+<li><strong><code>ProjectPlanner</code></strong>: This is the name of our specific namespace. It means this file (and the class inside it) belongs to the <code>ProjectPlanner</code> part of your application. It&#39;s like putting all your &quot;ProjectPlanner&quot; tools in a specific toolbox.</li>
+</ul>
+<hr>
+<pre><code class="language-php">use ProjectPlanner\ProjectPlannerAgent;
+</code></pre>
+<ul>
+<li><strong><code>use</code></strong>: This keyword is like saying, &quot;Hey PHP, I&#39;m going to be using a class from another namespace, and I want to refer to it by its short name.&quot;</li>
+<li><strong><code>ProjectPlanner\ProjectPlannerAgent</code></strong>: This tells PHP that we&#39;re going to be using a class named <code>ProjectPlannerAgent</code> that lives within the <code>ProjectPlanner</code> namespace. Instead of writing <code>ProjectPlanner\ProjectPlannerAgent</code> every time, we can now just write <code>ProjectPlannerAgent</code> within this file. It&#39;s like importing a specific tool into your current workspace.</li>
+</ul>
+<hr>
+<pre><code class="language-php">class DocumentService
+{
+    // ... code inside the class ...
+}
+</code></pre>
+<ul>
+<li><strong><code>class</code></strong>: This is the blueprint for creating objects. An object is an instance of a class. Think of a class as the design for a car, and an object as an actual car built from that design.</li>
+<li><strong><code>DocumentService</code></strong>: This is the name of our class. By its name, we can guess that this class is responsible for services related to documents – perhaps creating, validating, or processing them.</li>
+</ul>
+<hr>
+<h3>Class Property (or Variable)</h3>
+<pre><code class="language-php">    private ProjectPlannerAgent $agent;
+</code></pre>
+<ul>
+<li><strong><code>private</code></strong>: This is an &quot;access modifier.&quot; <code>private</code> means that this variable (<code>$agent</code>) can <em>only</em> be accessed from <em>inside</em> this <code>DocumentService</code> class. Other parts of your application cannot directly mess with it. This helps keep your code organized and prevents unintended changes.</li>
+<li><strong><code>ProjectPlannerAgent</code></strong>: This is a <strong>type hint</strong>. It tells PHP that the <code>$agent</code> variable is <em>expected</em> to hold an object of the <code>ProjectPlannerAgent</code> class. This is a great feature that helps catch errors early and makes your code easier to understand.</li>
+<li><strong><code>$agent</code></strong>: This is the name of the variable. It will hold an instance of our <code>ProjectPlannerAgent</code> which we can then use to perform actions related to planning.</li>
+</ul>
+<hr>
+<h3>The Constructor Method</h3>
+<pre><code class="language-php">    public function __construct(ProjectPlannerAgent $agent)
+    {
+        $this-&gt;agent = $agent;
+    }
+</code></pre>
+<ul>
+<li><strong><code>public function __construct(...)</code></strong>: This is a special method called the <strong>constructor</strong>. It&#39;s automatically called whenever you create a new &quot;object&quot; (an instance) of this <code>DocumentService</code> class.</li>
+<li><strong><code>public</code></strong>: This access modifier means this method can be called from anywhere, even outside this class.</li>
+<li><strong><code>(ProjectPlannerAgent $agent)</code></strong>: This tells the constructor that when you create a <code>DocumentService</code> object, you <em>must</em> provide it with an object of type <code>ProjectPlannerAgent</code>. This is called <strong>Dependency Injection</strong>, meaning this class &quot;depends&quot; on <code>ProjectPlannerAgent</code> to do its job, and that dependency is &quot;injected&quot; (passed in) when the <code>DocumentService</code> is created.</li>
+<li><strong><code>$this-&gt;agent = $agent;</code></strong>: Inside the constructor, we take the <code>ProjectPlannerAgent</code> object that was passed in (<code>$agent</code>) and store it in our class&#39;s own private <code>$agent</code> property (<code>$this-&gt;agent</code>). Now, throughout this <code>DocumentService</code> class, we can use <code>$this-&gt;agent</code> to access all the methods provided by the <code>ProjectPlannerAgent</code>.</li>
+</ul>
+<hr>
+<h3><code>generateProjectDocumentation</code> Method</h3>
+<pre><code class="language-php">    /**
+     * Generate complete project documentation workflow
+     */
+    public function generateProjectDocumentation(string $projectName, string $projectIdea): array
+    {
+        $documents = [];
+
+        // Generate PRD
+        $documents[&#39;prd&#39;] = $this-&gt;agent-&gt;generatePRD($projectName, $projectIdea);
+
+        // Generate SDD based on PRD
+        $documents[&#39;sdd&#39;] = $this-&gt;agent-&gt;generateSDD($projectName, $documents[&#39;prd&#39;]);
+
+        // Generate Plan based on SDD
+        $documents[&#39;plan&#39;] = $this-&gt;agent-&gt;generatePlan($projectName, $documents[&#39;sdd&#39;]);
+
+        // Generate Phases based on Plan
+        $documents[&#39;phases&#39;] = $this-&gt;agent-&gt;generatePhases($documents[&#39;plan&#39;]);
+
+        // Generate AI Instructions
+        $documents[&#39;aiInstructions&#39;] = $this-&gt;agent-&gt;generateAIInstructions($projectName);
+
+        // Generate System Architecture Diagram
+        $documents[&#39;systemArchDiagram&#39;] = $this-&gt;agent-&gt;generateDiagram($projectName, $projectIdea);
+
+        return $documents;
+    }
+</code></pre>
+<ul>
+<li><strong><code>/** ... */</code></strong>: This is a &quot;docblock&quot; comment. It&#39;s used by developers (and tools) to quickly understand what a function or class does. This one says it generates a &quot;complete project documentation workflow.&quot;</li>
+<li><strong><code>public function generateProjectDocumentation(...)</code></strong>: This defines a public method named <code>generateProjectDocumentation</code>.</li>
+<li><strong><code>(string $projectName, string $projectIdea)</code></strong>: These are the <strong>parameters</strong> (inputs) the method expects. It needs the project&#39;s name and its idea, both of which should be strings (text).</li>
+<li><strong><code>: array</code></strong>: This is the <strong>return type declaration</strong>. It tells us that this method is expected to return an <code>array</code> (a list-like structure in PHP).</li>
+<li><strong><code>$documents = [];</code></strong>: We start by creating an empty array named <code>$documents</code>. This array will store all the different pieces of documentation we generate.</li>
+<li><strong>The Workflow</strong>:<ul>
+<li>Each line like <code>$documents[&#39;prd&#39;] = $this-&gt;agent-&gt;generatePRD(...)</code> does the following:<ol>
+<li>It calls a method on the <code>$this-&gt;agent</code> object (which is an instance of <code>ProjectPlannerAgent</code>). For example, <code>generatePRD</code>.</li>
+<li>It passes some information to that method (like <code>$projectName</code> and <code>$projectIdea</code>).</li>
+<li>The <code>generatePRD</code> method (from the <code>ProjectPlannerAgent</code> class) does its job (e.g., generates a Product Requirements Document).</li>
+<li>The result of that method call is then stored in our <code>$documents</code> array, using a specific key like <code>&#39;prd&#39;</code>.</li>
+</ol>
+</li>
+<li>Notice how the output of one step often becomes the input for the next. For instance, <code>generateSDD</code> uses <code>$documents[&#39;prd&#39;]</code> (the result of <code>generatePRD</code>). This shows a clear step-by-step process.</li>
+</ul>
+</li>
+<li><strong><code>return $documents;</code></strong>: After all the documents have been generated and stored in the <code>$documents</code> array, this line sends that entire array back as the result of calling <code>generateProjectDocumentation</code>.</li>
+</ul>
+<hr>
+<h3><code>validateProjectInput</code> Method</h3>
+<pre><code class="language-php">    /**
+     * Validate project input data
+     */
+    public function validateProjectInput(string $name, string $idea): void
+    {
+        if (empty(trim($name))) {
+            throw new \InvalidArgumentException(&#39;Project name is required&#39;);
+        }
+
+        if (empty(trim($idea))) {
+            throw new \InvalidArgumentException(&#39;Project idea is required&#39;);
+        }
+
+        if (strlen($name) &gt; 100) {
+            throw new \InvalidArgumentException(&#39;Project name must be less than 100 characters&#39;);
+        }
+
+        if (strlen($idea) &gt; 10000) {
+            throw new \InvalidArgumentException(&#39;Project idea must be less than 10,000 characters&#39;);
+        }
+    }
+</code></pre>
+<ul>
+<li><strong><code>public function validateProjectInput(...)</code></strong>: A public method for validating input.</li>
+<li><strong><code>(string $name, string $idea)</code></strong>: It takes a project name and idea as strings.</li>
+<li><strong><code>: void</code></strong>: This return type means the method doesn&#39;t return any value. Its purpose is to perform a check. If a check fails, it stops execution by throwing an error.</li>
+<li><strong><code>if (empty(trim($name))) { ... }</code></strong>:<ul>
+<li><strong><code>trim($name)</code></strong>: This removes any whitespace (spaces, tabs, newlines) from the beginning and end of the <code>$name</code> string. This is important because a user might accidentally enter &quot;   My Project   &quot; instead of &quot;My Project&quot;.</li>
+<li><strong><code>empty(...)</code></strong>: This checks if the trimmed string is empty (e.g., just &quot;&quot; or &quot;   &quot;).</li>
+<li>If it&#39;s empty, it means the name is missing.</li>
+<li><strong><code>throw new \InvalidArgumentException(...)</code></strong>: This creates and &quot;throws&quot; an error (an &quot;exception&quot;). When an exception is thrown, the normal flow of the program stops, and it signals that something went wrong. <code>InvalidArgumentException</code> is a standard PHP error type indicating that one of the arguments passed to a function was not valid.</li>
+</ul>
+</li>
+<li>Similar checks are done for <code>$idea</code> to ensure it&#39;s not empty.</li>
+<li><strong><code>strlen($name) &gt; 100</code></strong>: This checks the <em>length</em> of the <code>$name</code> string. If it&#39;s longer than 100 characters, it throws an <code>InvalidArgumentException</code>. This prevents users from entering excessively long names that might break your database or layout.</li>
+<li>A similar length check is done for <code>$idea</code> (limiting it to 10,000 characters).</li>
+</ul>
+<hr>
+<h3><code>sanitizeProjectInput</code> Method</h3>
+<pre><code class="language-php">    /**
+     * Sanitize project input data
+     */
+    public function sanitizeProjectInput(string $name, string $idea): array
+    {
+        return [
+            &#39;name&#39; =&gt; strip_tags(trim($name)),
+            &#39;idea&#39; =&gt; strip_tags(trim($idea))
+        ];
+    }
+</code></pre>
+<ul>
+<li><strong><code>public function sanitizeProjectInput(...)</code></strong>: A public method for cleaning or &quot;sanitizing&quot; input.</li>
+<li><strong><code>(string $name, string $idea)</code></strong>: Takes project name and idea as strings.</li>
+<li><strong><code>: array</code></strong>: This method is expected to return an array, containing the cleaned name and idea.</li>
+<li><strong><code>return [</code>...<code>];</code></strong>: This method directly returns an associative array (an array where you access values by names, not just numbers).</li>
+<li><strong><code>&#39;name&#39; =&gt; strip_tags(trim($name))</code></strong>:<ul>
+<li><strong><code>trim($name)</code></strong>: Again, removes leading/trailing whitespace.</li>
+<li><strong><code>strip_tags(...)</code></strong>: This is a crucial security function! It removes all HTML and PHP tags from a string. For example, if a user enters <code>&lt;script&gt;alert(&#39;hack&#39;)&lt;/script&gt;My Project</code>, <code>strip_tags</code> will remove the <code>&lt;script&gt;</code> tags, leaving just &quot;My Project&quot;. This prevents malicious users from injecting harmful code (like JavaScript) into your application, a common attack called Cross-Site Scripting (XSS).</li>
+<li>The cleaned string is then stored in the returned array with the key <code>&#39;name&#39;</code>.</li>
+</ul>
+</li>
+<li>The same process (<code>strip_tags(trim(...))</code>) is applied to the <code>$idea</code>.</li>
+</ul>
+<hr>
+<h3>In Summary:</h3>
+<p>The <code>DocumentService</code> class acts as a central hub for handling project documentation in your <code>ProjectPlanner</code> application.</p>
+<ol>
+<li>It <strong>depends on a <code>ProjectPlannerAgent</code></strong> (which likely interacts with AI or other complex logic) to actually <em>generate</em> the different parts of the documentation.</li>
+<li>It provides a main method (<code>generateProjectDocumentation</code>) to orchestrate the entire <strong>workflow of document creation</strong>, taking a project name and idea, and sequentially generating a PRD, SDD, Plan, Phases, AI Instructions, and a System Architecture Diagram.</li>
+<li>It includes utility methods (<code>validateProjectInput</code> and <code>sanitizeProjectInput</code>) to ensure that the user-provided data is <strong>clean and safe</strong> before it&#39;s used to generate documents or stored anywhere. This is a very good practice for robust and secure applications!</li>
+</ol>
+<p>This class neatly separates the concerns: <code>DocumentService</code> manages the <em>process</em> of documentation, while <code>ProjectPlannerAgent</code> handles the <em>actual generation</em> of each document type.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="file-entry col-12 mb-4" id="file-2" data-file-path="D:\laragon\www\ProjectPlanner\src\FileService.php" data-file-index="2">
+    <div class="card shadow-sm border-0 h-100" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-header bg-gradient-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 1rem 1.5rem;">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="toggle-code h5 fw-semibold mb-0 cursor-pointer d-flex align-items-center text-white" data-file-index="2" style="font-size: 1.1rem;">
+                    <i class="fas fa-chevron-right me-2 transition-transform duration-200"></i>
+                    <i class="fas fa-file-code me-2"></i>
+                    FileService.php
+                </h2>
+                <span class="badge bg-white bg-opacity-25 text-white px-2 py-1" style="font-size: 0.75rem;">
+                    php
+                </span>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+              <div class="code-container bg-light border-bottom d-none" style="max-height: 400px; overflow: auto;">
+                  <div class="p-3">
+                      <pre class="mb-0"><code class="language-php" style="font-size: 0.9rem; line-height: 1.5;">
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">ProjectPlanner</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileService</span>
+</span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> <span class="hljs-variable">$projectsDir</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable language_">$this</span>-&gt;projectsDir = <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;paths.projects&#x27;</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * Create project directory structure
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createProjectDirectory</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$safeName</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">sanitizeFilename</span>(<span class="hljs-variable">$projectName</span>);
+        <span class="hljs-variable">$projectDir</span> = <span class="hljs-variable language_">$this</span>-&gt;projectsDir . <span class="hljs-string">&#x27;/&#x27;</span> . <span class="hljs-variable">$safeName</span>;
+
+        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_dir</span>(<span class="hljs-variable">$projectDir</span>)) {
+            <span class="hljs-title function_ invoke__">mkdir</span>(<span class="hljs-variable">$projectDir</span>, <span class="hljs-number">0755</span>, <span class="hljs-literal">true</span>);
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$projectDir</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Save document files to project directory
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveProjectDocuments</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectDir</span>, <span class="hljs-keyword">array</span> <span class="hljs-variable">$documents</span></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-variable">$fileMappings</span> = [
+            <span class="hljs-string">&#x27;prd&#x27;</span> =&gt; <span class="hljs-string">&#x27;prd.md&#x27;</span>,
+            <span class="hljs-string">&#x27;sdd&#x27;</span> =&gt; <span class="hljs-string">&#x27;sdd.md&#x27;</span>,
+            <span class="hljs-string">&#x27;plan&#x27;</span> =&gt; <span class="hljs-string">&#x27;plan.md&#x27;</span>,
+            <span class="hljs-string">&#x27;phases&#x27;</span> =&gt; <span class="hljs-string">&#x27;phases.md&#x27;</span>,
+            <span class="hljs-string">&#x27;aiInstructions&#x27;</span> =&gt; <span class="hljs-string">&#x27;AGENTS.md&#x27;</span>
+        ];
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$fileMappings</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$filename</span>) {
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$documents</span>[<span class="hljs-variable">$key</span>])) {
+                <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$projectDir</span> . <span class="hljs-string">&#x27;/&#x27;</span> . <span class="hljs-variable">$filename</span>, <span class="hljs-variable">$documents</span>[<span class="hljs-variable">$key</span>]);
+            }
+        }
+
+        <span class="hljs-comment">// Handle diagram separately</span>
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;systemArchDiagram&#x27;</span>])) {
+            <span class="hljs-variable">$diagramBinary</span> = <span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;systemArchDiagram&#x27;</span>]);
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$diagramBinary</span> !== <span class="hljs-literal">false</span>) {
+                <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$projectDir</span> . <span class="hljs-string">&#x27;/system_architecture.png&#x27;</span>, <span class="hljs-variable">$diagramBinary</span>);
+            }
+        }
+
+        <span class="hljs-comment">// Split phases into individual files</span>
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;phases&#x27;</span>])) {
+            <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">splitPhaseDocuments</span>(<span class="hljs-variable">$projectDir</span>, <span class="hljs-variable">$documents</span>[<span class="hljs-string">&#x27;phases&#x27;</span>]);
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Create ZIP archive of project documents
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createProjectZip</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectDir</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$safeName</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">sanitizeFilename</span>(<span class="hljs-variable">$projectName</span>);
+        <span class="hljs-variable">$zipFile</span> = <span class="hljs-variable">$projectDir</span> . <span class="hljs-string">&#x27;.zip&#x27;</span>;
+
+        <span class="hljs-variable">$zip</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">\ZipArchive</span>();
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$zip</span>-&gt;<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-variable">$zipFile</span>, <span class="hljs-title class_">\ZipArchive</span>::<span class="hljs-variable constant_">CREATE</span> | <span class="hljs-title class_">\ZipArchive</span>::<span class="hljs-variable constant_">OVERWRITE</span>) !== <span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">\RuntimeException</span>(<span class="hljs-string">&#x27;Cannot create ZIP file&#x27;</span>);
+        }
+
+        <span class="hljs-variable">$files</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">\RecursiveIteratorIterator</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">\RecursiveDirectoryIterator</span>(<span class="hljs-variable">$projectDir</span>),
+            <span class="hljs-title class_">\RecursiveIteratorIterator</span>::<span class="hljs-variable constant_">LEAVES_ONLY</span>
+        );
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$files</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$name</span> =&gt; <span class="hljs-variable">$file</span>) {
+            <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$file</span>-&gt;<span class="hljs-title function_ invoke__">isDir</span>()) {
+                <span class="hljs-variable">$filePath</span> = <span class="hljs-variable">$file</span>-&gt;<span class="hljs-title function_ invoke__">getRealPath</span>();
+                <span class="hljs-variable">$relativePath</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$filePath</span>, <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$projectDir</span>) + <span class="hljs-number">1</span>);
+                <span class="hljs-variable">$zip</span>-&gt;<span class="hljs-title function_ invoke__">addFile</span>(<span class="hljs-variable">$filePath</span>, <span class="hljs-variable">$relativePath</span>);
+            }
+        }
+
+        <span class="hljs-variable">$zip</span>-&gt;<span class="hljs-title function_ invoke__">close</span>();
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$zipFile</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Clean up temporary project files
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cleanupProjectFiles</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectDir</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$zipFile</span></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-comment">// Remove project directory</span>
+        <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">removeDirectory</span>(<span class="hljs-variable">$projectDir</span>);
+
+        <span class="hljs-comment">// Remove ZIP file after serving</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">file_exists</span>(<span class="hljs-variable">$zipFile</span>)) {
+            <span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-variable">$zipFile</span>);
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Sanitize filename for safe file operations
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sanitizeFilename</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$filename</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$filename</span> = <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&#x27;/[^A-Za-z0-9\-_\.]/&#x27;</span>, <span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-variable">$filename</span>);
+        <span class="hljs-variable">$filename</span> = <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&#x27;/_+/&#x27;</span>, <span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-variable">$filename</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$filename</span>, <span class="hljs-string">&#x27;_&#x27;</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * Split phase documents into individual files
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">splitPhaseDocuments</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectDir</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$phasesContent</span></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-variable">$phases</span> = <span class="hljs-title function_ invoke__">preg_split</span>(<span class="hljs-string">&#x27;/^## Phase \d+/m&#x27;</span>, <span class="hljs-variable">$phasesContent</span>, -<span class="hljs-number">1</span>, PREG_SPLIT_NO_EMPTY);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$phases</span>) &gt; <span class="hljs-number">1</span>) {
+            <span class="hljs-title function_ invoke__">array_shift</span>(<span class="hljs-variable">$phases</span>); <span class="hljs-comment">// Remove content before first phase</span>
+        }
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$phases</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$index</span> =&gt; <span class="hljs-variable">$phaseContent</span>) {
+            <span class="hljs-variable">$phaseNumber</span> = <span class="hljs-variable">$index</span> + <span class="hljs-number">1</span>;
+            <span class="hljs-variable">$phaseTitle</span> = <span class="hljs-string">&quot;Phase <span class="hljs-subst">{$phaseNumber}</span>&quot;</span>;
+
+            <span class="hljs-comment">// Extract phase title if it exists</span>
+            <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^## (.+)$/m&#x27;</span>, <span class="hljs-variable">$phaseContent</span>, <span class="hljs-variable">$matches</span>)) {
+                <span class="hljs-variable">$phaseTitle</span> = <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$matches</span>[<span class="hljs-number">1</span>]);
+            }
+
+            <span class="hljs-variable">$safeTitle</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">sanitizeFilename</span>(<span class="hljs-variable">$phaseTitle</span>);
+            <span class="hljs-variable">$fileName</span> = <span class="hljs-variable">$projectDir</span> . <span class="hljs-string">&#x27;/&#x27;</span> . <span class="hljs-variable">$safeTitle</span> . <span class="hljs-string">&#x27;.md&#x27;</span>;
+
+            <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$fileName</span>, <span class="hljs-string">&quot;## <span class="hljs-subst">{$phaseTitle}</span>\n\n&quot;</span> . <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$phaseContent</span>));
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Recursively remove directory
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeDirectory</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$dir</span></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_dir</span>(<span class="hljs-variable">$dir</span>)) {
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-variable">$files</span> = <span class="hljs-title function_ invoke__">array_diff</span>(<span class="hljs-title function_ invoke__">scandir</span>(<span class="hljs-variable">$dir</span>), [<span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-string">&#x27;..&#x27;</span>]);
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$files</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$file</span>) {
+            <span class="hljs-variable">$path</span> = <span class="hljs-variable">$dir</span> . <span class="hljs-string">&#x27;/&#x27;</span> . <span class="hljs-variable">$file</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">is_dir</span>(<span class="hljs-variable">$path</span>)) {
+                <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">removeDirectory</span>(<span class="hljs-variable">$path</span>);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-variable">$path</span>);
+            }
+        }
+
+        <span class="hljs-title function_ invoke__">rmdir</span>(<span class="hljs-variable">$dir</span>);
+    }
+}
+                      </code></pre>
+                  </div>
+              </div>
+
+            <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 text-muted mb-0 d-flex align-items-center">
+                        <i class="fas fa-brain me-2 text-primary"></i>
+                        AI Explanation
+                    </h3>
+                    <button class="btn btn-outline-primary btn-sm copy-explanation" data-file-index="2" title="Copy explanation">
+                        <i class="fas fa-copy me-1"></i> Copy
+                    </button>
+                </div>
+                <div class="explanation-content">
+                    <p>This PHP file, <code>FileService.php</code>, is like a toolbox specifically designed to help your <code>ProjectPlanner</code> application manage files and directories related to different projects. Think of it as a dedicated helper that knows how to create project folders, save documents, package everything into a ZIP file, and clean up afterwards.</p>
+<p>Let&#39;s break down each part of the code:</p>
+<hr>
+<h3>File Location and Name</h3>
+<ul>
+<li><strong>File:</strong> <code>D:\laragon\www\ProjectPlanner\src\FileService.php</code></li>
+<li><strong>Purpose:</strong> This tells us it&#39;s part of a project called <code>ProjectPlanner</code>, located in the <code>src</code> (source) directory, and its job is to handle &quot;File Services.&quot;</li>
+</ul>
+<hr>
+<h3>1. <code>&lt;?php</code></h3>
+<p>This is the standard opening tag for a PHP script, indicating that the code following it is PHP.</p>
+<hr>
+<h3>2. <code>namespace ProjectPlanner;</code></h3>
+<ul>
+<li><strong>Concept:</strong> Namespaces help organize your code, especially in larger applications, to prevent naming conflicts.</li>
+<li><strong>Explanation:</strong> This line declares that the <code>FileService</code> class belongs to the <code>ProjectPlanner</code> namespace. If you have another <code>FileService</code> class in a different part of your application (e.g., <code>App\Utility\FileService</code>), PHP knows they are distinct because they are in different namespaces.</li>
+</ul>
+<hr>
+<h3>3. <code>class FileService</code></h3>
+<ul>
+<li><strong>Concept:</strong> A class is a blueprint for creating objects. An object is an instance of a class.</li>
+<li><strong>Explanation:</strong> This defines a class named <code>FileService</code>. All the functions (methods) and data (properties) related to file operations for projects will be bundled inside this class.</li>
+</ul>
+<hr>
+<h3>4. <code>private string $projectsDir;</code></h3>
+<ul>
+<li><strong>Concept:</strong><ul>
+<li><strong>Property (or Member Variable):</strong> A variable declared inside a class.</li>
+<li><strong><code>private</code>:</strong> An &quot;access modifier&quot; that means this property can <em>only</em> be accessed from <em>inside</em> this <code>FileService</code> class itself. Other parts of your application cannot directly read or change <code>$projectsDir</code>. This helps protect the data.</li>
+<li><strong><code>string</code>:</strong> A &quot;type hint&quot; that tells us this variable is expected to hold a text string (like <code>&quot;C:\my-projects&quot;</code>).</li>
+</ul>
+</li>
+<li><strong>Explanation:</strong> This line declares a private property named <code>$projectsDir</code>. Its purpose is to store the base directory where all project folders will be created.</li>
+</ul>
+<hr>
+<h3>5. <code>public function __construct()</code></h3>
+<ul>
+<li><strong>Concept:</strong><ul>
+<li><strong><code>public</code>:</strong> Another access modifier, meaning this method can be called from anywhere, even outside the <code>FileService</code> class.</li>
+<li><strong><code>__construct()</code>:</strong> This is a special method in PHP called a &quot;constructor.&quot; It&#39;s automatically run whenever you create a new &quot;instance&quot; (object) of the <code>FileService</code> class.</li>
+</ul>
+</li>
+<li><strong>Explanation:</strong> When you create a new <code>FileService</code> object, this constructor immediately gets called. Its job is to set up the <code>$projectsDir</code> property.<ul>
+<li><code>$this-&gt;projectsDir = config(&#39;paths.projects&#39;);</code><ul>
+<li><code>$this</code> refers to the <em>current</em> object of the <code>FileService</code> class.</li>
+<li><code>config(&#39;paths.projects&#39;)</code> is likely a helper function (common in frameworks like Laravel or custom setups) that reads a configuration value. It probably fetches the path to where all project folders should be stored from your application&#39;s settings (e.g., <code>D:\laragon\www\ProjectPlanner\projects</code>).</li>
+<li>So, this line sets the <code>$projectsDir</code> property of the <code>FileService</code> object to the path specified in your application&#39;s configuration.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>6. <code>public function createProjectDirectory(string $projectName): string</code></h3>
+<ul>
+<li><strong>Concept:</strong><ul>
+<li><strong><code>public</code>:</strong> This method can be called from outside the class.</li>
+<li><strong><code>string $projectName</code>:</strong> This method expects one input, a <code>string</code> (text) representing the project&#39;s name.</li>
+<li><strong><code>: string</code>:</strong> This is a &quot;return type declaration,&quot; meaning this method is guaranteed to return a <code>string</code> (in this case, the full path to the created project directory).</li>
+</ul>
+</li>
+<li><strong>Explanation:</strong> This method&#39;s job is to create a new folder for a project.<ul>
+<li><code>$safeName = $this-&gt;sanitizeFilename($projectName);</code><ul>
+<li>It first calls another <em>private</em> method within this class, <code>sanitizeFilename()</code>, to clean up the <code>$projectName</code>. This is important to remove any characters that might cause problems in a file path (like <code>?</code>, <code>/</code>, <code>*</code>, etc.).</li>
+</ul>
+</li>
+<li><code>$projectDir = $this-&gt;projectsDir . &#39;/&#39; . $safeName;</code><ul>
+<li>It then combines the base project directory (from <code>$projectsDir</code>) with the cleaned project name to form the full path for the new project folder.</li>
+</ul>
+</li>
+<li><code>if (!is_dir($projectDir)) { ... }</code><ul>
+<li><code>is_dir()</code> is a built-in PHP function that checks if a given path exists and is a directory.</li>
+<li>The <code>!</code> means &quot;NOT&quot;. So, <code>!is_dir($projectDir)</code> checks &quot;if the project directory does NOT already exist.&quot;</li>
+</ul>
+</li>
+<li><code>mkdir($projectDir, 0755, true);</code><ul>
+<li>If the directory doesn&#39;t exist, <code>mkdir()</code> (Make Directory) is called to create it.</li>
+<li><code>0755</code>: These are file permissions. It&#39;s a common setting meaning:<ul>
+<li><code>7</code> (owner) can read, write, and execute.</li>
+<li><code>5</code> (group) can read and execute.</li>
+<li><code>5</code> (others) can read and execute.</li>
+</ul>
+</li>
+<li><code>true</code>: This is the <code>recursive</code> parameter. It means if the parent directories (e.g., <code>D:\laragon\www\ProjectPlanner\projects</code>) don&#39;t exist, <code>mkdir</code> will create them too.</li>
+</ul>
+</li>
+<li><code>return $projectDir;</code><ul>
+<li>Finally, it returns the full path to the newly created (or existing) project directory.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>7. <code>public function saveProjectDocuments(string $projectDir, array $documents): void</code></h3>
+<ul>
+<li><strong>Concept:</strong><ul>
+<li><strong><code>array $documents</code>:</strong> This method expects a <code>string</code> for the project directory and an <code>array</code> (a list of items) for the documents.</li>
+<li><strong><code>: void</code>:</strong> This &quot;return type declaration&quot; means this method does <em>not</em> return any value. Its job is just to perform an action (saving files).</li>
+</ul>
+</li>
+<li><strong>Explanation:</strong> This method takes the path to a project directory and an array of document content, then saves these documents as files within that directory.<ul>
+<li><p><code>$fileMappings = [...]</code></p>
+<ul>
+<li>This creates an array that maps internal keys (like <code>&#39;prd&#39;</code>, <code>&#39;sdd&#39;</code>) to their desired filenames (like <code>&#39;prd.md&#39;</code>, <code>&#39;sdd.md&#39;</code>). <code>.md</code> usually means a Markdown file.</li>
+</ul>
+</li>
+<li><p><code>foreach ($fileMappings as $key =&gt; $filename) { ... }</code></p>
+<ul>
+<li>This loop goes through each item in the <code>$fileMappings</code> array.</li>
+<li><code>$key</code> will be <code>prd</code>, <code>sdd</code>, etc.</li>
+<li><code>$filename</code> will be <code>prd.md</code>, <code>sdd.md</code>, etc.</li>
+</ul>
+</li>
+<li><p><code>if (!empty($documents[$key])) { ... }</code></p>
+<ul>
+<li><code>!empty()</code> checks if the <code>$documents</code> array has an entry for the current <code>$key</code> (e.g., <code>documents[&#39;prd&#39;]</code>) AND if that entry is not empty. This ensures we only try to save content that actually exists.</li>
+</ul>
+</li>
+<li><p><code>file_put_contents($projectDir . &#39;/&#39; . $filename, $documents[$key]);</code></p>
+<ul>
+<li><code>file_put_contents()</code> is a convenient PHP function that writes a string to a file. If the file doesn&#39;t exist, it creates it. If it does, it overwrites it.</li>
+<li>It constructs the full file path (e.g., <code>[projectDir]/prd.md</code>) and writes the content from <code>$documents[$key]</code> into it.</li>
+</ul>
+</li>
+<li><p><strong>Handling Diagram (Special Case):</strong></p>
+<ul>
+<li><code>if (!empty($documents[&#39;systemArchDiagram&#39;])) { ... }</code><ul>
+<li>Checks if there&#39;s a system architecture diagram.</li>
+</ul>
+</li>
+<li><code>$diagramBinary = base64_decode($documents[&#39;systemArchDiagram&#39;]);</code><ul>
+<li>Diagrams are often sent as &quot;Base64 encoded&quot; strings, which is a way to represent binary data (like images) as plain text. <code>base64_decode()</code> converts this text back into its original binary image data.</li>
+</ul>
+</li>
+<li><code>if ($diagramBinary !== false) { ... }</code><ul>
+<li><code>base64_decode()</code> returns <code>false</code> if the input is not valid Base64. This checks if the decoding was successful.</li>
+</ul>
+</li>
+<li><code>file_put_contents($projectDir . &#39;/system_architecture.png&#39;, $diagramBinary);</code><ul>
+<li>Saves the decoded binary image data as <code>system_architecture.png</code> in the project directory.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Splitting Phases:</strong></p>
+<ul>
+<li><code>if (!empty($documents[&#39;phases&#39;])) { ... }</code><ul>
+<li>Checks if there&#39;s content for &quot;phases.&quot;</li>
+</ul>
+</li>
+<li><code>$this-&gt;splitPhaseDocuments($projectDir, $documents[&#39;phases&#39;]);</code><ul>
+<li>Calls another <em>private</em> method of this class to take the single &quot;phases&quot; document and split it into multiple files, one for each phase. This makes the project structure more organized.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>8. <code>public function createProjectZip(string $projectDir, string $projectName): string</code></h3>
+<ul>
+<li><strong>Explanation:</strong> This method creates a ZIP archive of all files within a given project directory.<ul>
+<li><code>$safeName = $this-&gt;sanitizeFilename($projectName);</code><ul>
+<li>Cleans up the project name to ensure the ZIP file name is valid.</li>
+</ul>
+</li>
+<li><code>$zipFile = $projectDir . &#39;.zip&#39;;</code><ul>
+<li>Determines the name of the ZIP file (e.g., <code>my_project.zip</code>). It puts the zip file in the same directory as the project folder.</li>
+</ul>
+</li>
+<li><code>$zip = new \ZipArchive();</code><ul>
+<li><code>\ZipArchive</code> is a built-in PHP class for working with ZIP archives. This line creates a new <code>ZipArchive</code> object. The <code>\</code> before <code>ZipArchive</code> is important, it means &quot;use the global <code>ZipArchive</code> class,&quot; not one within our current <code>ProjectPlanner</code> namespace.</li>
+</ul>
+</li>
+<li><code>if ($zip-&gt;open($zipFile, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) { ... }</code><ul>
+<li><code>$zip-&gt;open()</code> attempts to open the specified ZIP file.</li>
+<li><code>\ZipArchive::CREATE</code>: If the file doesn&#39;t exist, create it.</li>
+<li><code>\ZipArchive::OVERWRITE</code>: If the file exists, overwrite it.</li>
+<li>The <code>|</code> (bitwise OR) combines these flags.</li>
+<li>If opening fails, it throws a <code>\RuntimeException</code> (a type of error) with a message. This stops the script and indicates a problem.</li>
+</ul>
+</li>
+<li><code>$files = new \RecursiveIteratorIterator(...)</code><ul>
+<li>This is a sophisticated way to list all files and directories <em>recursively</em> (meaning it goes into subfolders) within <code>$projectDir</code>.</li>
+<li><code>\RecursiveDirectoryIterator($projectDir)</code>: Starts at the project directory and can iterate over its contents.</li>
+<li><code>\RecursiveIteratorIterator(..., \RecursiveIteratorIterator::LEAVES_ONLY)</code>: This wraps the directory iterator to ensure we only get individual files (&quot;leaves&quot;) and not the directories themselves in our loop.</li>
+</ul>
+</li>
+<li><code>foreach ($files as $name =&gt; $file) { ... }</code><ul>
+<li>This loop goes through every file found by the iterator.</li>
+</ul>
+</li>
+<li><code>if (!$file-&gt;isDir()) { ... }</code><ul>
+<li>Ensures we only process actual files, not directories.</li>
+</ul>
+</li>
+<li><code>$filePath = $file-&gt;getRealPath();</code><ul>
+<li>Gets the full, absolute path to the current file (e.g., <code>D:\laragon\www\ProjectPlanner\projects\my_project\prd.md</code>).</li>
+</ul>
+</li>
+<li><code>$relativePath = substr($filePath, strlen($projectDir) + 1);</code><ul>
+<li>This calculates the path of the file <em>relative</em> to the project directory. For example, if <code>$filePath</code> is <code>.../my_project/prd.md</code> and <code>$projectDir</code> is <code>.../my_project</code>, <code>$relativePath</code> will be <code>prd.md</code>. This is how files are typically stored <em>inside</em> a ZIP file.</li>
+</ul>
+</li>
+<li><code>$zip-&gt;addFile($filePath, $relativePath);</code><ul>
+<li>Adds the file to the ZIP archive. The first argument is the actual file path on the disk, and the second is how it should appear inside the ZIP.</li>
+</ul>
+</li>
+<li><code>$zip-&gt;close();</code><ul>
+<li>Important! This saves and closes the ZIP archive.</li>
+</ul>
+</li>
+<li><code>return $zipFile;</code><ul>
+<li>Returns the full path to the created ZIP file.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>9. <code>public function cleanupProjectFiles(string $projectDir, string $zipFile): void</code></h3>
+<ul>
+<li><strong>Explanation:</strong> This method is responsible for deleting the project folder and the temporary ZIP file after they are no longer needed (e.g., after the ZIP has been downloaded by a user).<ul>
+<li><code>$this-&gt;removeDirectory($projectDir);</code><ul>
+<li>Calls another <em>private</em> method to recursively delete the entire project directory and all its contents.</li>
+</ul>
+</li>
+<li><code>if (file_exists($zipFile)) { ... }</code><ul>
+<li>Checks if the ZIP file still exists.</li>
+</ul>
+</li>
+<li><code>unlink($zipFile);</code><ul>
+<li>If the ZIP file exists, <code>unlink()</code> deletes it.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>10. <code>private function sanitizeFilename(string $filename): string</code></h3>
+<ul>
+<li><strong>Concept:</strong> This is a <em>private</em> helper method, meaning it can only be called by other methods within the <code>FileService</code> class. It&#39;s not meant to be called directly from outside.</li>
+<li><strong>Explanation:</strong> This method takes a string (like a project name or a phase title) and makes it safe to use as part of a filename or directory name.<ul>
+<li><code>$filename = preg_replace(&#39;/[^A-Za-z0-9\-_\.]/&#39;, &#39;_&#39;, $filename);</code><ul>
+<li><code>preg_replace()</code> is a powerful PHP function that uses &quot;regular expressions&quot; to find and replace patterns in a string.</li>
+<li><code>/[^A-Za-z0-9\-_\.]/</code>: This is the pattern.<ul>
+<li><code>[</code> and <code>]</code> define a character set.</li>
+<li><code>^</code> inside <code>[]</code> means &quot;NOT&quot; (negation).</li>
+<li><code>A-Za-z0-9</code>: Allows uppercase letters, lowercase letters, and numbers.</li>
+<li><code>\-_\.</code>: Allows hyphens, underscores, and periods.</li>
+<li>So, this pattern matches <em>any character that is NOT</em> an English letter, number, hyphen, underscore, or period.</li>
+</ul>
+</li>
+<li><code>&#39;_&#39;</code>: Any character that matches the pattern will be replaced with an underscore.</li>
+<li><strong>Example:</strong> <code>My Project Name!</code> becomes <code>My_Project_Name_</code>.</li>
+</ul>
+</li>
+<li><code>$filename = preg_replace(&#39;/_+/&#39;, &#39;_&#39;, $filename);</code><ul>
+<li><code>/_+/</code>: This pattern matches <em>one or more</em> consecutive underscores.</li>
+<li>It replaces multiple underscores with a single underscore.</li>
+<li><strong>Example:</strong> <code>My__Project___Name</code> becomes <code>My_Project_Name</code>. This prevents messy filenames.</li>
+</ul>
+</li>
+<li><code>return trim($filename, &#39;_&#39;);</code><ul>
+<li><code>trim()</code> removes specified characters from the beginning and end of a string.</li>
+<li><code>trim($filename, &#39;_&#39;)</code> removes any leading or trailing underscores.</li>
+<li><strong>Example:</strong> <code>_My_Project_</code> becomes <code>My_Project</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>11. <code>private function splitPhaseDocuments(string $projectDir, string $phasesContent): void</code></h3>
+<ul>
+<li><strong>Concept:</strong> Another private helper method, used by <code>saveProjectDocuments</code>.</li>
+<li><strong>Explanation:</strong> This method takes the full content of all phases (which might be a single Markdown string) and splits it into individual Markdown files, one for each phase.<ul>
+<li><code>$phases = preg_split(&#39;/^## Phase \d+/m&#39;, $phasesContent, -1, PREG_SPLIT_NO_EMPTY);</code><ul>
+<li><code>preg_split()</code> splits a string into an array of strings using a regular expression as a delimiter.</li>
+<li><code>/^## Phase \d+/m</code>: This is the pattern for splitting.<ul>
+<li><code>^</code>: Matches the beginning of a line.</li>
+<li><code>## Phase \d+</code>: Matches the literal text &quot;## Phase &quot; followed by one or more digits (e.g., &quot;## Phase 1&quot;, &quot;## Phase 2&quot;).</li>
+<li><code>/m</code>: The <code>m</code> flag makes <code>^</code> match the beginning of <em>each line</em> (multiline mode), not just the beginning of the entire string.</li>
+</ul>
+</li>
+<li><code>-1</code>: Splits into as many parts as necessary.</li>
+<li><code>PREG_SPLIT_NO_EMPTY</code>: Ensures that empty results from the split are not included in the final array.</li>
+<li><strong>Result:</strong> This will split the <code>$phasesContent</code> wherever it finds a line starting with &quot;## Phase N&quot;.</li>
+</ul>
+</li>
+<li><code>if (count($phases) &gt; 1) { array_shift($phases); }</code><ul>
+<li>Sometimes, if the content <em>starts</em> with something before the first <code>## Phase</code>, <code>preg_split</code> might create an empty or irrelevant first element. <code>array_shift()</code> removes the first element of an array.</li>
+</ul>
+</li>
+<li><code>foreach ($phases as $index =&gt; $phaseContent) { ... }</code><ul>
+<li>Loops through each separated phase&#39;s content.</li>
+</ul>
+</li>
+<li><code>$phaseNumber = $index + 1;</code><ul>
+<li>Calculates a human-readable phase number (starting from 1).</li>
+</ul>
+</li>
+<li><code>$phaseTitle = &quot;Phase {$phaseNumber}&quot;;</code><ul>
+<li>Sets a default phase title.</li>
+</ul>
+</li>
+<li><code>if (preg_match(&#39;/^## (.+)$/m&#39;, $phaseContent, $matches)) { ... }</code><ul>
+<li><code>preg_match()</code> attempts to find a pattern in a string.</li>
+<li><code>/^## (.+)$/m</code>: This pattern tries to extract the actual title if it&#39;s immediately after <code>##</code> on a new line.<ul>
+<li><code>(.+)</code>: This is a &quot;capturing group&quot; that captures any characters after <code>## </code> until the end of the line.</li>
+</ul>
+</li>
+<li>If a title is found, it&#39;s stored in <code>$matches[1]</code>.</li>
+<li><code>$phaseTitle = trim($matches[1]);</code> sets the phase title to the extracted one, removing extra spaces.</li>
+</ul>
+</li>
+<li><code>$safeTitle = $this-&gt;sanitizeFilename($phaseTitle);</code><ul>
+<li>Cleans up the extracted phase title to make it safe for a filename.</li>
+</ul>
+</li>
+<li><code>$fileName = $projectDir . &#39;/&#39; . $safeTitle . &#39;.md&#39;;</code><ul>
+<li>Constructs the full path for the individual phase file.</li>
+</ul>
+</li>
+<li><code>file_put_contents($fileName, &quot;## {$phaseTitle}\n\n&quot; . trim($phaseContent));</code><ul>
+<li>Writes the content to the new file. It prepends <code>## {Phase Title}\n\n</code> to ensure the file starts with a proper Markdown heading, and <code>trim()</code> cleans up any extra whitespace from the content.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>12. <code>private function removeDirectory(string $dir): void</code></h3>
+<ul>
+<li><strong>Concept:</strong> A private recursive helper method to delete a directory and all its contents.</li>
+<li><strong>Explanation:</strong> This is a crucial and powerful function that deletes an entire folder, including any subfolders and files inside it. It uses a technique called &quot;recursion&quot; (a function calling itself).<ul>
+<li><code>if (!is_dir($dir)) { return; }</code><ul>
+<li>First, it checks if the given path is actually a directory. If not, there&#39;s nothing to do, so it simply stops (<code>return;</code>).</li>
+</ul>
+</li>
+<li><code>$files = array_diff(scandir($dir), [&#39;.&#39;, &#39;..&#39;]);</code><ul>
+<li><code>scandir($dir)</code> lists all files and directories inside <code>$dir</code>. This usually includes <code>.</code> (current directory) and <code>..</code> (parent directory).</li>
+<li><code>array_diff(..., [&#39;.&#39;, &#39;..&#39;])</code> removes <code>.</code> and <code>..</code> from the list, as we don&#39;t want to try and delete them.</li>
+</ul>
+</li>
+<li><code>foreach ($files as $file) { ... }</code><ul>
+<li>It then loops through every item (file or sub-directory) found within the current directory.</li>
+</ul>
+</li>
+<li><code>$path = $dir . &#39;/&#39; . $file;</code><ul>
+<li>Constructs the full path to the current item.</li>
+</ul>
+</li>
+<li><code>if (is_dir($path)) { $this-&gt;removeDirectory($path); }</code><ul>
+<li><strong>This is the recursion part!</strong> If the current item is a directory, it calls <code>removeDirectory()</code> <em>itself</em> with the path to that sub-directory. This means it will go into that sub-directory and start deleting its contents before returning to the current level.</li>
+</ul>
+</li>
+<li><code>else { unlink($path); }</code><ul>
+<li>If the current item is <em>not</em> a directory (meaning it&#39;s a file), <code>unlink($path)</code> deletes the file.</li>
+</ul>
+</li>
+<li><code>rmdir($dir);</code><ul>
+<li><strong>After</strong> all files and sub-directories within the current <code>$dir</code> have been deleted (thanks to the loop and recursion), <code>rmdir($dir)</code> (Remove Directory) finally deletes the now-empty current directory itself.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>In Summary:</h3>
+<p>The <code>FileService</code> class provides a robust set of tools for managing project files:</p>
+<ol>
+<li><strong>Setting up:</strong> It knows where to put project files from your app&#39;s configuration.</li>
+<li><strong>Creation:</strong> It can create a dedicated, safely named directory for each project.</li>
+<li><strong>Saving:</strong> It can save various documents (Markdown, diagrams) into the project directory, including decoding images and splitting multi-phase content.</li>
+<li><strong>Packaging:</strong> It can compress all project files into a single ZIP archive.</li>
+<li><strong>Cleanup:</strong> It can safely delete project directories and temporary ZIP files when they are no longer needed.</li>
+<li><strong>Safety:</strong> It includes private helper methods for sanitizing filenames and recursively deleting directories to prevent errors and ensure proper file management.</li>
+</ol>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="file-entry col-12 mb-4" id="file-3" data-file-path="D:\laragon\www\ProjectPlanner\src\ProjectPlannerAgent.php" data-file-index="3">
+    <div class="card shadow-sm border-0 h-100" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-header bg-gradient-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 1rem 1.5rem;">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="toggle-code h5 fw-semibold mb-0 cursor-pointer d-flex align-items-center text-white" data-file-index="3" style="font-size: 1.1rem;">
+                    <i class="fas fa-chevron-right me-2 transition-transform duration-200"></i>
+                    <i class="fas fa-file-code me-2"></i>
+                    ProjectPlannerAgent.php
+                </h2>
+                <span class="badge bg-white bg-opacity-25 text-white px-2 py-1" style="font-size: 0.75rem;">
+                    php
+                </span>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+              <div class="code-container bg-light border-bottom d-none" style="max-height: 400px; overflow: auto;">
+                  <div class="p-3">
+                      <pre class="mb-0"><code class="language-php" style="font-size: 0.9rem; line-height: 1.5;">
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">ProjectPlanner</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">NeuronAI</span>\<span class="hljs-title">Agent</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">NeuronAI</span>\<span class="hljs-title">Chat</span>\<span class="hljs-title">Messages</span>\<span class="hljs-title">UserMessage</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">NeuronAI</span>\<span class="hljs-title">Providers</span>\<span class="hljs-title">AIProviderInterface</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">NeuronAI</span>\<span class="hljs-title">Providers</span>\<span class="hljs-title">Anthropic</span>\<span class="hljs-title">Anthropic</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">NeuronAI</span>\<span class="hljs-title">Providers</span>\<span class="hljs-title">Gemini</span>\<span class="hljs-title">Gemini</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">NeuronAI</span>\<span class="hljs-title">Providers</span>\<span class="hljs-title">Ollama</span>\<span class="hljs-title">Ollama</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">NeuronAI</span>\<span class="hljs-title">Providers</span>\<span class="hljs-title">OpenAI</span>\<span class="hljs-title">OpenAI</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProjectPlannerAgent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Agent</span>
+</span>{
+    <span class="hljs-comment">// Timeouts</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">AI_TIMEOUT_MS</span> = <span class="hljs-number">300000</span>; <span class="hljs-comment">// 5 minutes for AI operations</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">API_TIMEOUT_SECONDS</span> = <span class="hljs-number">300</span>; <span class="hljs-comment">// 5 minutes for API operations</span>
+
+    <span class="hljs-keyword">private</span> DiagramGenerator <span class="hljs-variable">$diagramGenerator</span>;
+    <span class="hljs-keyword">private</span> PromptService <span class="hljs-variable">$promptService</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable language_">$this</span>-&gt;diagramGenerator = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DiagramGenerator</span>();
+        <span class="hljs-variable language_">$this</span>-&gt;promptService = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PromptService</span>();
+    }
+
+    <span class="hljs-comment">/**
+     * Call AI with prompt and extract markdown content from response
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callAIAndExtractContent</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$prompt</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$response</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">chat</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserMessage</span>(<span class="hljs-variable">$prompt</span>));
+        <span class="hljs-variable">$content</span> = <span class="hljs-variable">$response</span>-&gt;<span class="hljs-title function_ invoke__">getContent</span>();
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">extractMarkdownContent</span>(<span class="hljs-variable">$content</span>);
+    }
+
+
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">provider</span>(<span class="hljs-params"></span>): <span class="hljs-title">AIProviderInterface</span>
+    </span>{
+        <span class="hljs-variable">$provider</span> = <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;ai.provider&#x27;</span>, <span class="hljs-string">&#x27;gemini&#x27;</span>);
+        <span class="hljs-variable">$model</span> = <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;ai.model&#x27;</span>);
+        <span class="hljs-variable">$apiKey</span> = <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;ai.api_key&#x27;</span>);
+        <span class="hljs-variable">$temperature</span> = <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;ai.temperature&#x27;</span>, <span class="hljs-number">0.7</span>);
+        <span class="hljs-variable">$maxTokens</span> = <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;ai.max_tokens&#x27;</span>, <span class="hljs-number">8192</span>);
+        
+        <span class="hljs-comment">// Get today&#x27;s date for inclusion in prompts</span>
+        <span class="hljs-variable">$today</span> = <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>);
+        
+        <span class="hljs-keyword">switch</span> (<span class="hljs-variable">$provider</span>) {
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;anthropic&#x27;</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Anthropic</span>(
+                    key: <span class="hljs-variable">$apiKey</span>,
+                    model: <span class="hljs-variable">$model</span> ?: <span class="hljs-string">&#x27;claude-3-5-sonnet-20240620&#x27;</span>,
+                    parameters: [
+                        <span class="hljs-string">&#x27;temperature&#x27;</span> =&gt; <span class="hljs-variable">$temperature</span>,
+                        <span class="hljs-string">&#x27;max_tokens&#x27;</span> =&gt; <span class="hljs-variable">$maxTokens</span>,
+                    ]
+                );
+                
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ollama&#x27;</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Ollama</span>(
+                    url: <span class="hljs-title function_ invoke__">config</span>(<span class="hljs-string">&#x27;ai.url&#x27;</span>, <span class="hljs-string">&#x27;http://localhost:11434/api&#x27;</span>),
+                    model: <span class="hljs-variable">$model</span> ?: <span class="hljs-string">&#x27;llama3&#x27;</span>,
+                    parameters: [
+                        <span class="hljs-string">&#x27;temperature&#x27;</span> =&gt; <span class="hljs-variable">$temperature</span>,
+                    ]
+                );
+                
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;openai&#x27;</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">OpenAI</span>(
+                    <span class="hljs-attr">key</span>: <span class="hljs-variable">$apiKey</span>,
+                    <span class="hljs-attr">model</span>: <span class="hljs-variable">$model</span> ?: <span class="hljs-string">&#x27;gpt-4o&#x27;</span>,
+                    <span class="hljs-attr">parameters</span>: [
+                        <span class="hljs-string">&#x27;temperature&#x27;</span> =&gt; <span class="hljs-variable">$temperature</span>,
+                        <span class="hljs-string">&#x27;max_tokens&#x27;</span> =&gt; <span class="hljs-variable">$maxTokens</span>,
+                    ]
+                );
+                
+            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;gemini&#x27;</span>:
+            <span class="hljs-keyword">default</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Gemini</span>(
+                    key: <span class="hljs-variable">$apiKey</span>,
+                    model: <span class="hljs-variable">$model</span> ?: <span class="hljs-string">&#x27;gemini-2.0-flash&#x27;</span>,
+                    parameters: [
+                        <span class="hljs-string">&#x27;safetySettings&#x27;</span> =&gt; [
+                            [
+                                <span class="hljs-string">&#x27;category&#x27;</span> =&gt; <span class="hljs-string">&#x27;HARM_CATEGORY_HARASSMENT&#x27;</span>,
+                                <span class="hljs-string">&#x27;threshold&#x27;</span> =&gt; <span class="hljs-string">&#x27;BLOCK_NONE&#x27;</span>,
+                            ],
+                            [
+                                <span class="hljs-string">&#x27;category&#x27;</span> =&gt; <span class="hljs-string">&#x27;HARM_CATEGORY_HATE_SPEECH&#x27;</span>,
+                                <span class="hljs-string">&#x27;threshold&#x27;</span> =&gt; <span class="hljs-string">&#x27;BLOCK_NONE&#x27;</span>,
+                            ],
+                            [
+                                <span class="hljs-string">&#x27;category&#x27;</span> =&gt; <span class="hljs-string">&#x27;HARM_CATEGORY_SEXUALLY_EXPLICIT&#x27;</span>,
+                                <span class="hljs-string">&#x27;threshold&#x27;</span> =&gt; <span class="hljs-string">&#x27;BLOCK_NONE&#x27;</span>,
+                            ],
+                            [
+                                <span class="hljs-string">&#x27;category&#x27;</span> =&gt; <span class="hljs-string">&#x27;HARM_CATEGORY_DANGEROUS_CONTENT&#x27;</span>,
+                                <span class="hljs-string">&#x27;threshold&#x27;</span> =&gt; <span class="hljs-string">&#x27;BLOCK_NONE&#x27;</span>,
+                            ],
+                        ],
+                        <span class="hljs-string">&#x27;generationConfig&#x27;</span> =&gt; [
+                            <span class="hljs-string">&#x27;temperature&#x27;</span> =&gt; <span class="hljs-variable">$temperature</span>,
+                            <span class="hljs-string">&#x27;maxOutputTokens&#x27;</span> =&gt; <span class="hljs-variable">$maxTokens</span>
+                        ]
+                    ]
+                );
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generatePRD</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$projectIdea</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$prompt</span> = <span class="hljs-variable language_">$this</span>-&gt;promptService-&gt;<span class="hljs-title function_ invoke__">buildPRDPrompt</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$projectIdea</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">callAIAndExtractContent</span>(<span class="hljs-variable">$prompt</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateSDD</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$prdContent</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$prompt</span> = <span class="hljs-variable language_">$this</span>-&gt;promptService-&gt;<span class="hljs-title function_ invoke__">buildSDDPrompt</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$prdContent</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">callAIAndExtractContent</span>(<span class="hljs-variable">$prompt</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateDiagram</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$projectIdea</span></span>): ?<span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$prompt</span> = <span class="hljs-variable language_">$this</span>-&gt;promptService-&gt;<span class="hljs-title function_ invoke__">buildDiagramPrompt</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$projectIdea</span>);
+
+        <span class="hljs-variable">$response</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">chat</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserMessage</span>(<span class="hljs-variable">$prompt</span>));
+        <span class="hljs-variable">$content</span> = <span class="hljs-variable">$response</span>-&gt;<span class="hljs-title function_ invoke__">getContent</span>();
+
+        <span class="hljs-comment">// Extract DOT code from response</span>
+        <span class="hljs-variable">$dotCode</span> = <span class="hljs-variable language_">$this</span>-&gt;diagramGenerator-&gt;<span class="hljs-title function_ invoke__">extractDotCode</span>(<span class="hljs-variable">$content</span>);
+
+        <span class="hljs-comment">// Generate PNG from DOT code</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;diagramGenerator-&gt;<span class="hljs-title function_ invoke__">generatePngFromDot</span>(<span class="hljs-variable">$dotCode</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generatePlan</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$sddContent</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$prompt</span> = <span class="hljs-variable language_">$this</span>-&gt;promptService-&gt;<span class="hljs-title function_ invoke__">buildPlanPrompt</span>(<span class="hljs-variable">$projectName</span>, <span class="hljs-variable">$sddContent</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">callAIAndExtractContent</span>(<span class="hljs-variable">$prompt</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generatePhases</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$planContent</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$prompt</span> = <span class="hljs-variable language_">$this</span>-&gt;promptService-&gt;<span class="hljs-title function_ invoke__">buildPhasesPrompt</span>(<span class="hljs-variable">$planContent</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">callAIAndExtractContent</span>(<span class="hljs-variable">$prompt</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateAIInstructions</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-comment">// Generate the AI Instruction Guide dynamically without calling AI</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">buildAIInstructionsContent</span>(<span class="hljs-variable">$projectName</span>);
+    }
+    
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildAIInstructionsContent</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;# AI Coding Agent Instructions for <span class="hljs-subst">{$projectName}</span>
+
+## Project Overview
+This project contains comprehensive documentation to guide AI coding agents in understanding and implementing the <span class="hljs-subst">{$projectName}</span> application.
+
+## Document Guide
+
+### prd.md (Project Requirements Document)
+**Purpose**: Defines what the project is, its goals, requirements, and target audience.
+**For AI Agents**: Use this as the starting point to understand the project&#x27;s objectives, user needs, and functional requirements.
+
+### sdd.md (System Design Document)  
+**Purpose**: Provides technical architecture, component design, and implementation details.
+**For AI Agents**: Reference this for technical specifications, data models, API designs, and architectural decisions.
+
+### plan.md (Development Plan)
+**Purpose**: Outlines the development approach, timeline, resources, and risk management.
+**For AI Agents**: Use this to understand the development phases, timeline expectations, and resource requirements.
+
+### phases.md (Phase Documents)
+**Purpose**: Breaks down the project into actionable development phases with specific tasks.
+**For AI Agents**: Follow these phase-by-phase instructions for implementation. Each phase contains detailed todo lists.
+
+### Phase_X.md (Individual Phase Files)
+**Purpose**: Separate files for each development phase with detailed task breakdowns.
+**For AI Agents**: Work through these files sequentially for granular implementation guidance.
+
+## How to Use This Documentation
+1. Start with prd.md to understand project requirements
+2. Review sdd.md for technical architecture and design
+3. Use plan.md to understand the development approach
+4. Follow phases.md and individual Phase_X.md files for implementation
+5. Refer to specific documents as needed during development
+
+## Key Technical Details
+- All documents are in Markdown format
+- Code examples and technical specifications are provided
+- Task breakdowns include implementation details and testing requirements
+- Architecture decisions are documented in sdd.md
+
+## Project Structure
+```
+project/
+├── prd.md              # Project Requirements Document
+├── sdd.md              # System Design Document  
+├── plan.md             # Development Plan
+├── phases.md           # Combined Phase Documents
+├── Phase_1.md          # Individual Phase 1
+├── Phase_2.md          # Individual Phase 2
+└── ...                 # Additional Phase files
+```
+
+&quot;</span>;
+    }
+
+
+    <span class="hljs-comment">/**
+     * Extract clean markdown content from AI response
+     * Removes explanatory text before/after markdown code blocks
+     *
+     * <span class="hljs-doctag">@param</span> string $content
+     * <span class="hljs-doctag">@return</span> string
+     */</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extractMarkdownContent</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$content</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-comment">// Pattern to match markdown content within code blocks</span>
+        <span class="hljs-variable">$pattern</span> = <span class="hljs-string">&#x27;/```(?:markdown)?\s*(.*?)\s*```/s&#x27;</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-variable">$pattern</span>, <span class="hljs-variable">$content</span>, <span class="hljs-variable">$matches</span>)) {
+            <span class="hljs-variable">$extracted</span> = <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$matches</span>[<span class="hljs-number">1</span>]);
+            <span class="hljs-comment">// Check if extracted content looks like a complete document (has headers)</span>
+            <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^#{1,6} /m&#x27;</span>, <span class="hljs-variable">$extracted</span>)) {
+                <span class="hljs-keyword">return</span> <span class="hljs-variable">$extracted</span>;
+            }
+            <span class="hljs-comment">// If it&#x27;s just code, look for the full content outside the code block</span>
+        }
+
+        <span class="hljs-comment">// If no markdown code blocks found, or code block doesn&#x27;t contain full document,</span>
+        <span class="hljs-comment">// check if content starts with markdown headers and extract everything from the first header onwards</span>
+        <span class="hljs-variable">$headerPattern</span> = <span class="hljs-string">&#x27;/(#{1,6} .*)/s&#x27;</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-variable">$headerPattern</span>, <span class="hljs-variable">$content</span>, <span class="hljs-variable">$matches</span>, PREG_OFFSET_CAPTURE)) {
+            <span class="hljs-comment">// Return everything from the first header onwards</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$content</span>, <span class="hljs-variable">$matches</span>[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]));
+        }
+
+        <span class="hljs-comment">// If no headers found, return the original content</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">trim</span>(<span class="hljs-variable">$content</span>);
+    }
+
+}
+                      </code></pre>
+                  </div>
+              </div>
+
+            <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 text-muted mb-0 d-flex align-items-center">
+                        <i class="fas fa-brain me-2 text-primary"></i>
+                        AI Explanation
+                    </h3>
+                    <button class="btn btn-outline-primary btn-sm copy-explanation" data-file-index="3" title="Copy explanation">
+                        <i class="fas fa-copy me-1"></i> Copy
+                    </button>
+                </div>
+                <div class="explanation-content">
+                    <p>This PHP file, <code>ProjectPlannerAgent.php</code>, acts as a specialized <strong>AI agent</strong> designed to help plan software projects. Think of it as a smart assistant that can generate various project documents like requirements, design, and development plans using different Artificial Intelligence models.</p>
+<p>Let&#39;s break down the code piece by piece:</p>
+<hr>
+<h3>1. File Header and Namespace</h3>
+<pre><code class="language-php">&lt;?php
+
+namespace ProjectPlanner;
+</code></pre>
+<ul>
+<li><code>&lt;?php</code>: This is the standard opening tag for PHP code.</li>
+<li><code>namespace ProjectPlanner;</code>: This line defines the &quot;address&quot; for this file. It means this <code>ProjectPlannerAgent</code> class belongs to the <code>ProjectPlanner</code> family of code. Namespaces help organize code, especially in larger projects, preventing name conflicts between classes with the same name.</li>
+</ul>
+<hr>
+<h3>2. Importing Other Classes (<code>use</code> statements)</h3>
+<pre><code class="language-php">use NeuronAI\Agent;
+use NeuronAI\Chat\Messages\UserMessage;
+use NeuronAI\Providers\AIProviderInterface;
+use NeuronAI\Providers\Anthropic\Anthropic;
+use NeuronAI\Providers\Gemini\Gemini;
+use NeuronAI\Providers\Ollama\Ollama;
+use NeuronAI\Providers\OpenAI\OpenAI;
+</code></pre>
+<p>These lines are like saying, &quot;Hey, I&#39;m going to use some tools from other toolboxes in this file.&quot;</p>
+<ul>
+<li><code>use NeuronAI\Agent;</code>: This class is the base for our <code>ProjectPlannerAgent</code>. It provides core functionalities for interacting with AI.</li>
+<li><code>use NeuronAI\Chat\Messages\UserMessage;</code>: This is used to create a message that we send <em>to</em> the AI, acting as if a user typed it.</li>
+<li><code>use NeuronAI\Providers\AIProviderInterface;</code>: This is a &quot;contract&quot; or a blueprint that all AI providers (like Anthropic, Gemini, etc.) must follow, ensuring they all have similar ways of being used.</li>
+<li><code>use NeuronAI\Providers\Anthropic\Anthropic;</code>, <code>Gemini\Gemini;</code>, <code>Ollama\Ollama;</code>, <code>OpenAI\OpenAI;</code>: These are specific classes for connecting to different AI services like Anthropic&#39;s Claude, Google&#39;s Gemini, the local Ollama, and OpenAI&#39;s ChatGPT models.</li>
+</ul>
+<hr>
+<h3>3. Class Definition</h3>
+<pre><code class="language-php">class ProjectPlannerAgent extends Agent
+{
+    // ... code inside the class ...
+}
+</code></pre>
+<ul>
+<li><code>class ProjectPlannerAgent</code>: This declares our main class, <code>ProjectPlannerAgent</code>. This is where all the related code for our project planning AI assistant will live.</li>
+<li><code>extends Agent</code>: This is a very important part! It means our <code>ProjectPlannerAgent</code> <em>inherits</em> all the properties and methods (variables and functions) from the <code>Agent</code> class (from <code>NeuronAI</code>). So, our <code>ProjectPlannerAgent</code> automatically gets capabilities like sending messages to an AI without us having to write that code again. This is called <strong>inheritance</strong> and is a core concept in Object-Oriented Programming (OOP).</li>
+</ul>
+<hr>
+<h3>4. Class Constants (Timeouts)</h3>
+<pre><code class="language-php">    private const AI_TIMEOUT_MS = 300000; // 5 minutes for AI operations
+    private const API_TIMEOUT_SECONDS = 300; // 5 minutes for API operations
+</code></pre>
+<ul>
+<li><code>private const</code>: These are special variables whose values <strong>cannot be changed</strong> once set. They are also <code>private</code>, meaning they can only be used <em>inside</em> this <code>ProjectPlannerAgent</code> class.</li>
+<li><code>AI_TIMEOUT_MS</code> and <code>API_TIMEOUT_SECONDS</code>: These define how long the system should wait for an AI or API operation to complete before giving up (5 minutes in both cases, measured in milliseconds and seconds respectively). This prevents the program from waiting forever if an AI service is slow or unresponsive.</li>
+</ul>
+<hr>
+<h3>5. Class Properties</h3>
+<pre><code class="language-php">    private DiagramGenerator $diagramGenerator;
+    private PromptService $promptService;
+</code></pre>
+<p>These are variables that belong to our <code>ProjectPlannerAgent</code> class. They store other objects that our agent needs to do its job.</p>
+<ul>
+<li><code>private</code>: Only accessible from inside this class.</li>
+<li><code>DiagramGenerator $diagramGenerator;</code>: This variable will hold an object that knows how to create diagrams. The <code>$diagramGenerator</code> part is the variable name, and <code>DiagramGenerator</code> before it tells us what <em>type</em> of object it&#39;s expected to hold.</li>
+<li><code>PromptService $promptService;</code>: This variable will hold an object that knows how to build the right questions (prompts) to send to the AI.</li>
+</ul>
+<hr>
+<h3>6. Constructor Method</h3>
+<pre><code class="language-php">    public function __construct()
+    {
+        $this-&gt;diagramGenerator = new DiagramGenerator();
+        $this-&gt;promptService = new PromptService();
+    }
+</code></pre>
+<ul>
+<li><code>public function __construct()</code>: This is a special method called a <strong>constructor</strong>. It runs automatically whenever you create a new <code>ProjectPlannerAgent</code> object (e.g., <code>$agent = new ProjectPlannerAgent();</code>).</li>
+<li><code>$this-&gt;diagramGenerator = new DiagramGenerator();</code>: Inside the constructor, we create a new <code>DiagramGenerator</code> object and store it in our <code>$diagramGenerator</code> property. The <code>$</code>this<code>keyword refers to the current</code>ProjectPlannerAgent` object.</li>
+<li><code>$this-&gt;promptService = new PromptService();</code>: Similarly, we create a new <code>PromptService</code> object.<ul>
+<li><strong>In simple terms</strong>: When you &quot;make&quot; a <code>ProjectPlannerAgent</code>, it immediately gets its own <code>DiagramGenerator</code> and <code>PromptService</code> ready to use.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>7. Helper Method: <code>callAIAndExtractContent()</code></h3>
+<pre><code class="language-php">    /**
+     * Call AI with prompt and extract markdown content from response
+     */
+    private function callAIAndExtractContent(string $prompt): string
+    {
+        $response = $this-&gt;chat(new UserMessage($prompt));
+        $content = $response-&gt;getContent();
+        return $this-&gt;extractMarkdownContent($content);
+    }
+</code></pre>
+<ul>
+<li><code>private function</code>: This is a helper function, meaning it&#39;s used internally by this class and not directly called from outside.</li>
+<li><code>string $prompt</code>: It takes one input: a <code>$prompt</code> (the question for the AI), which must be a <code>string</code> (text).</li>
+<li><code>: string</code>: It is expected to return a <code>string</code>.</li>
+<li><code>$response = $this-&gt;chat(new UserMessage($prompt));</code>: This is the core interaction. It calls the <code>chat()</code> method (which is inherited from the <code>Agent</code> class) and sends it a <code>UserMessage</code> containing our <code>$prompt</code>. The <code>chat()</code> method then sends this to the actual AI service and gets a <code>$response</code>.</li>
+<li><code>$content = $response-&gt;getContent();</code>: We then get the actual text of the AI&#39;s answer from the <code>$response</code> object.</li>
+<li><code>return $this-&gt;extractMarkdownContent($content);</code>: Finally, it takes the AI&#39;s raw answer and passes it to another method (<code>extractMarkdownContent</code>) to clean it up and return just the important Markdown text.</li>
+</ul>
+<hr>
+<h3>8. Provider Method: <code>provider()</code></h3>
+<pre><code class="language-php">    protected function provider(): AIProviderInterface
+    {
+        // ... code to select AI provider ...
+    }
+</code></pre>
+<ul>
+<li><code>protected function provider()</code>: This method is <code>protected</code>, meaning it can be accessed within this class and by any classes that inherit from <code>ProjectPlannerAgent</code>. It&#39;s responsible for setting up which specific AI model (like Anthropic, Gemini, OpenAI, or Ollama) our agent will use.</li>
+<li><code>: AIProviderInterface</code>: It must return an object that adheres to the <code>AIProviderInterface</code> blueprint.</li>
+<li><code>config(&#39;ai.provider&#39;, &#39;gemini&#39;);</code>: This line retrieves settings from a configuration file (like a settings file for your application). It looks for an entry named <code>&#39;ai.provider&#39;</code> and, if it doesn&#39;t find one, defaults to <code>&#39;gemini&#39;</code>. The same happens for <code>model</code>, <code>apiKey</code>, <code>temperature</code>, and <code>maxTokens</code>.</li>
+<li><code>date(&#39;Y-m-d&#39;);</code>: This gets today&#39;s date, which might be included in some prompts later.</li>
+<li><strong><code>switch ($provider)</code></strong>: This block checks the value of <code>$provider</code> (e.g., &#39;anthropic&#39;, &#39;ollama&#39;, &#39;openai&#39;, &#39;gemini&#39;) and creates the appropriate AI service object.<ul>
+<li><strong>Anthropic, Ollama, OpenAI</strong>: Each case creates a new object for that specific AI service, passing in the <code>key</code> (API key for authentication), <code>model</code> (e.g., &#39;claude-3-5-sonnet-20240620&#39;, &#39;llama3&#39;, &#39;gpt-4o&#39;), and other <code>parameters</code> like <code>temperature</code> (how creative/random the AI&#39;s response is) and <code>max_tokens</code> (the maximum length of the AI&#39;s response).</li>
+<li><strong>Gemini (and <code>default</code>)</strong>: This is the default choice. It also includes <code>safetySettings</code> to control how strictly the AI filters out potentially harmful content.</li>
+</ul>
+</li>
+<li><strong>In simple terms</strong>: This method acts like a switchboard. Based on your application&#39;s settings, it connects your agent to a specific AI brain (like Gemini, OpenAI, etc.) and configures it with the right model and behavior.</li>
+</ul>
+<hr>
+<h3>9. Public Functionality Methods</h3>
+<p>These methods are the main ways you would interact with the <code>ProjectPlannerAgent</code> from outside the class to generate different project documents.</p>
+<ul>
+<li><p><code>public function generatePRD(string $projectName, string $projectIdea): string</code></p>
+<ul>
+<li><strong>PRD</strong> stands for <strong>Product Requirements Document</strong>.</li>
+<li>It takes a <code>$projectName</code> and a <code>$projectIdea</code> as input.</li>
+<li>It uses <code>$this-&gt;promptService-&gt;buildPRDPrompt()</code> to create a detailed question for the AI based on the project details.</li>
+<li>Then it calls <code>$this-&gt;callAIAndExtractContent()</code> to send the prompt to the AI, get the response, and clean it up.</li>
+<li>It returns the generated PRD content as a string.</li>
+</ul>
+</li>
+<li><p><code>public function generateSDD(string $projectName, string $prdContent): string</code></p>
+<ul>
+<li><strong>SDD</strong> stands for <strong>System Design Document</strong>.</li>
+<li>It takes the <code>$projectName</code> and the previously generated <code>$prdContent</code> (the requirements).</li>
+<li>It uses these to build a prompt for the AI to generate a system design.</li>
+<li>It returns the generated SDD content.</li>
+</ul>
+</li>
+<li><p><code>public function generateDiagram(string $projectName, string $projectIdea): ?string</code></p>
+<ul>
+<li>This method generates a visual diagram.</li>
+<li>It builds a prompt to ask the AI for diagram code (specifically &quot;DOT code,&quot; a language for describing graphs).</li>
+<li><code>$response = $this-&gt;chat(new UserMessage($prompt));</code>: It sends this prompt to the AI.</li>
+<li><code>$dotCode = $this-&gt;diagramGenerator-&gt;extractDotCode($content);</code>: It takes the AI&#39;s raw answer and uses the <code>DiagramGenerator</code> to find and extract the special DOT code.</li>
+<li><code>return $this-&gt;diagramGenerator-&gt;generatePngFromDot($dotCode);</code>: Finally, it tells the <code>DiagramGenerator</code> to convert that DOT code into an actual image (PNG format) and returns its path or content. The <code>?string</code> return type means it might return a string or <code>null</code> (if something goes wrong).</li>
+</ul>
+</li>
+<li><p><code>public function generatePlan(string $projectName, string $sddContent): string</code></p>
+<ul>
+<li>This generates a <strong>Development Plan</strong>, using the <code>$projectName</code> and the <code>$sddContent</code> (system design) as input to guide the AI.</li>
+</ul>
+</li>
+<li><p><code>public function generatePhases(string $planContent): string</code></p>
+<ul>
+<li>This generates project <strong>Phases</strong> (breaking the plan into smaller steps), based on the <code>$planContent</code>.</li>
+</ul>
+</li>
+<li><p><code>public function generateAIInstructions(string $projectName): string</code></p>
+<ul>
+<li>This is a bit different. Notice it <strong>doesn&#39;t call the AI</strong> (<code>$this-&gt;callAIAndExtractContent()</code>).</li>
+<li>Instead, it directly calls <code>$this-&gt;buildAIInstructionsContent()</code> to create a standard set of instructions for other AI agents working on the project. This means these instructions are static and don&#39;t change based on AI&#39;s creativity.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>10. Private Helper Method: <code>buildAIInstructionsContent()</code></h3>
+<pre><code class="language-php">    private function buildAIInstructionsContent(string $projectName): string
+    {
+        return &quot;# AI Coding Agent Instructions for {$projectName}\n\n// ... more markdown content ...&quot;;
+    }
+</code></pre>
+<ul>
+<li><code>private function</code>: This is a helper function used only within this class.</li>
+<li>It takes <code>$projectName</code> as input.</li>
+<li>It returns a long string containing pre-defined Markdown text. This text is an instruction guide for other AI agents, explaining the project structure and the purpose of different project documents (PRD, SDD, plan, phases, etc.).</li>
+<li><code>{$projectName}</code>: This is an example of embedding a variable&#39;s value directly into a string.</li>
+</ul>
+<hr>
+<h3>11. Protected Helper Method: <code>extractMarkdownContent()</code></h3>
+<pre><code class="language-php">    /**
+     * Extract clean markdown content from AI response
+     * Removes explanatory text before/after markdown code blocks
+     */
+    protected function extractMarkdownContent(string $content): string
+    {
+        // ... logic to extract markdown ...
+    }
+</code></pre>
+<ul>
+<li><code>protected function</code>: This method is <code>protected</code> because it&#39;s a utility for this class and potentially for any future classes that inherit from it.</li>
+<li>Its purpose is to clean up the raw text response received from the AI. AI models sometimes add conversational text around the actual Markdown content you want (e.g., &quot;Here is your PRD document: ```markdown # My Project ... ```&quot;). This method tries to strip that away.</li>
+<li><code>$pattern = &#39;/```(?:markdown)?\s*(.*?)\s*```/s&#39;;</code>: This is a <strong>regular expression</strong> (regex). It&#39;s a powerful pattern-matching language. This specific pattern tries to find blocks of text enclosed within triple backticks (````` ``` ``, often used for code blocks in Markdown), optionally followed by <code>markdown</code>.<ul>
+<li>If it finds such a block, it extracts the content inside (<code>$matches[1]</code>) and <code>trim()</code>s (removes whitespace from ends) it.</li>
+<li><code>preg_match()</code>: This PHP function tries to match a regular expression pattern against a string.</li>
+</ul>
+</li>
+<li><code>if (preg_match(&#39;/^#{1,6} /m&#39;, $extracted))</code>: After finding a code block, it checks if the extracted content actually looks like a proper Markdown document by checking for Markdown headers (<code>#</code>, <code>##</code>, etc.).</li>
+<li>If no code blocks are found, or the code block doesn&#39;t seem to contain a full document, it then tries to find the <em>first Markdown header</em> in the entire response and returns everything from that header onwards.</li>
+<li>If all else fails, it just returns the entire content after trimming whitespace.</li>
+<li><strong>In simple terms</strong>: This function is a smart cleaner. It looks for the actual Markdown document hidden within the AI&#39;s chatty response and gives you just that document.</li>
+</ul>
+<hr>
+<h3>Summary</h3>
+<p>This <code>ProjectPlannerAgent</code> class is a sophisticated AI assistant for project management. It can:</p>
+<ol>
+<li><strong>Connect to various AI providers</strong> (Gemini, OpenAI, Anthropic, Ollama) based on configuration.</li>
+<li><strong>Generate key project documents</strong> like Product Requirements (PRD), System Design (SDD), Development Plans, and Project Phases by crafting specific prompts and interpreting AI responses.</li>
+<li><strong>Generate visual diagrams</strong> from AI-provided descriptions.</li>
+<li><strong>Provide static instructions</strong> for other AI agents or developers.</li>
+<li><strong>Clean and format AI responses</strong> to extract usable Markdown content.</li>
+</ol>
+<p>It uses an object-oriented approach by inheriting from a base <code>Agent</code> class and composing other helper services (<code>DiagramGenerator</code>, <code>PromptService</code>) to keep its code organized and efficient.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="file-entry col-12 mb-4" id="file-4" data-file-path="D:\laragon\www\ProjectPlanner\src\PromptService.php" data-file-index="4">
+    <div class="card shadow-sm border-0 h-100" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-header bg-gradient-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 1rem 1.5rem;">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="toggle-code h5 fw-semibold mb-0 cursor-pointer d-flex align-items-center text-white" data-file-index="4" style="font-size: 1.1rem;">
+                    <i class="fas fa-chevron-right me-2 transition-transform duration-200"></i>
+                    <i class="fas fa-file-code me-2"></i>
+                    PromptService.php
+                </h2>
+                <span class="badge bg-white bg-opacity-25 text-white px-2 py-1" style="font-size: 0.75rem;">
+                    php
+                </span>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+              <div class="code-container bg-light border-bottom d-none" style="max-height: 400px; overflow: auto;">
+                  <div class="p-3">
+                      <pre class="mb-0"><code class="language-php" style="font-size: 0.9rem; line-height: 1.5;">
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">ProjectPlanner</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PromptService</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Build PRD generation prompt
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildPRDPrompt</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$projectIdea</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$today</span> = <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Create a comprehensive Project Requirements Document for &#x27;<span class="hljs-subst">{$projectName}</span>&#x27;.
+
+Application Idea: <span class="hljs-subst">{$projectIdea}</span>
+
+Infer the appropriate project type, technology stack, and scale based on the idea. Consider modern development practices and industry standards.
+
+Include these sections:
+1. Executive Summary
+2. Project Overview
+3. Goals and Objectives
+4. Target Audience
+5. Functional Requirements
+6. Non-Functional Requirements
+7. User Stories
+8. Technical Requirements
+9. Constraints and Assumptions
+10. Success Metrics
+11. Risk Assessment
+
+Provide specific, actionable content for each section tailored to the project type.
+Use bullet points and clear descriptions.
+Format in markdown with proper headers.
+Today&#x27;s date: <span class="hljs-subst">{$today}</span>&quot;</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Build SDD generation prompt
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildSDDPrompt</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$prdContent</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$today</span> = <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Create a detailed System Design Document for &#x27;<span class="hljs-subst">{$projectName}</span>&#x27; based on this PRD:
+
+<span class="hljs-subst">{$prdContent}</span>
+
+Design the system architecture considering modern best practices, security standards, and scalability needs. Choose appropriate technologies based on the project requirements and scale.
+
+Include these sections:
+1. System Architecture Overview
+2. Technology Stack
+3. Component Design
+4. Data Model and Database Schema
+5. API Design
+6. Security Considerations
+7. Performance Considerations
+8. Scalability Design
+9. Integration Points
+10. Deployment Architecture
+11. Testing Strategy
+
+Provide technical details for each section with specific recommendations.
+Use bullet points and clear descriptions.
+Format in markdown with proper headers.
+Today&#x27;s date: <span class="hljs-subst">{$today}</span>
+NO MERMAID DIAGRAMS - ONLY TEXT.&quot;</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Build development plan generation prompt
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildPlanPrompt</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$sddContent</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$today</span> = <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Create a realistic development plan for &#x27;<span class="hljs-subst">{$projectName}</span>&#x27; based on this SDD:
+
+<span class="hljs-subst">{$sddContent}</span>
+
+Structure the plan with achievable phases, realistic timelines, and appropriate resource allocation based on project complexity and technology choices.
+
+Include these sections:
+1. Project Overview
+2. Technology Stack
+3. Development Phases
+4. Timeline Estimates
+5. Resource Requirements
+6. Risk Assessment and Mitigation
+7. Testing Strategy
+8. Deployment Plan
+
+Provide specific details for each section with time estimates and dependencies.
+Use bullet points and clear descriptions.
+Format in markdown with proper headers.
+Today&#x27;s date: <span class="hljs-subst">{$today}</span>&quot;</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Build phase documents generation prompt
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildPhasesPrompt</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$planContent</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-variable">$today</span> = <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Break down this development plan into phase documents with todo lists:
+
+<span class="hljs-subst">{$planContent}</span>
+
+For each phase:
+## Phase X: [Phase Name]
+- [ ] Task 1: What needs to be accomplished
+- [ ] Task 2: Implementation details
+- [ ] Task 3: Testing requirements
+
+Number phases sequentially.
+Give each phase a descriptive name.
+Include specific, actionable tasks.
+Format in markdown with proper headers.
+Today&#x27;s date: <span class="hljs-subst">{$today}</span>
+NO MERMAID DIAGRAMS - ONLY TEXT.&quot;</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Build diagram generation prompt
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildDiagramPrompt</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$projectName</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$projectIdea</span></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Create a system architecture diagram for &#x27;<span class="hljs-subst">{$projectName}</span>&#x27; using Graphviz DOT language.
+
+Based on this project description:
+<span class="hljs-subst">{$projectIdea}</span>
+
+Requirements:
+- Use digraph format with proper graph attributes
+- Include main components, data flow, and relationships
+- Use appropriate node shapes (box, circle, cylinder for databases, etc.)
+- Add clear, descriptive labels for components
+- Number the relationships/edges sequentially (1, 2, 3...) to show the flow order
+- Make it readable and professional with good spacing
+- Focus on high-level architecture, not implementation details
+
+Styling requirements:
+- Set graph size to at least 8x6 inches for better readability
+- Use nodesep=1.0 and ranksep=1.5 for proper spacing between nodes
+- Add padding with pad=0.5
+- Ensure to increase font size based on diagram size and number of shapes to maintain readability, preferably large font size (e.g., 20-24pt)
+- Use &#x27;Arial&#x27; for all text to ensure readability
+- Ensure black font color for all text
+- Make nodes colorful with purposeful colors:
+  * User interface components: light blue (fillcolor=\&quot;#E3F2FD\&quot;, color=\&quot;#1976D2\&quot;)
+  * Backend/API components: light green (fillcolor=\&quot;#E8F5E8\&quot;, color=\&quot;#388E3C\&quot;)
+  * Database components: light orange (fillcolor=\&quot;#FFF3E0\&quot;, color=\&quot;#F57C00\&quot;)
+  * External services: light purple (fillcolor=\&quot;#F3E5F5\&quot;, color=\&quot;#7B1FA2\&quot;)
+  * Infrastructure: light gray (fillcolor=\&quot;#F5F5F5\&quot;, color=\&quot;#616161\&quot;)
+- Include sequential numbers in edge labels (e.g., \&quot;1. User Input\&quot;, \&quot;2. Data Processing\&quot;)
+- Make edges colored based on data flow type (blue for user interactions, green for data flow, etc.)
+
+Output only the complete DOT code starting with &#x27;digraph&#x27;, no explanations or markdown formatting.&quot;</span>;
+    }
+}
+                      </code></pre>
+                  </div>
+              </div>
+
+            <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 text-muted mb-0 d-flex align-items-center">
+                        <i class="fas fa-brain me-2 text-primary"></i>
+                        AI Explanation
+                    </h3>
+                    <button class="btn btn-outline-primary btn-sm copy-explanation" data-file-index="4" title="Copy explanation">
+                        <i class="fas fa-copy me-1"></i> Copy
+                    </button>
+                </div>
+                <div class="explanation-content">
+                    <p>This PHP code file, <code>PromptService.php</code>, is designed to help generate various detailed text prompts. Think of it as a specialized &quot;prompt generator&quot; that creates specific instructions for an AI or another system, asking it to produce different types of project documentation or diagrams.</p>
+<p>Let&#39;s break down the code step by step:</p>
+<hr>
+<h3><strong>1. PHP Opening Tag (<code>&lt;?php</code>)</strong></h3>
+<pre><code class="language-php">&lt;?php
+</code></pre>
+<ul>
+<li>This is the standard way to start any PHP code file. It tells the server that the following content should be interpreted as PHP code.</li>
+</ul>
+<hr>
+<h3><strong>2. Namespace (<code>namespace ProjectPlanner;</code>)</strong></h3>
+<pre><code class="language-php">namespace ProjectPlanner;
+</code></pre>
+<ul>
+<li><strong>What it is:</strong> A namespace is like a folder or a category for your code. It helps organize your classes and functions, especially in larger projects, to prevent naming conflicts.</li>
+<li><strong>In simpler terms:</strong> Imagine you have two different books, both with a chapter titled &quot;Introduction.&quot; If they&#39;re in different books (namespaces), you know which &quot;Introduction&quot; you&#39;re talking about. Here, <code>PromptService</code> belongs to the <code>ProjectPlanner</code> namespace.</li>
+</ul>
+<hr>
+<h3><strong>3. Class Definition (<code>class PromptService</code>)</strong></h3>
+<pre><code class="language-php">class PromptService
+{
+    // ... methods inside ...
+}
+</code></pre>
+<ul>
+<li><strong>What it is:</strong> A <code>class</code> is a blueprint for creating &quot;objects.&quot; It defines properties (data) and methods (functions) that objects of that class will have.</li>
+<li><strong>In simpler terms:</strong> Think of a class as a cookie cutter. You define the shape once (the class), and then you can use it to create many cookies (objects) that all have the same basic shape and characteristics.</li>
+<li>Here, <code>PromptService</code> is the name of our class. Its job is to provide services related to building prompts.</li>
+</ul>
+<hr>
+<h3><strong>4. Methods (Functions within the Class)</strong></h3>
+<p>Inside the <code>PromptService</code> class, there are several <code>public function</code> declarations. These are called &quot;methods&quot; when they are part of a class. Each method has a specific purpose: to build a particular type of prompt.</p>
+<p>Let&#39;s look at each one:</p>
+<h4><strong>4.1. <code>buildPRDPrompt</code> Method</strong></h4>
+<pre><code class="language-php">    /**
+     * Build PRD generation prompt
+     */
+    public function buildPRDPrompt(string $projectName, string $projectIdea): string
+    {
+        $today = date(&#39;Y-m-d&#39;);
+
+        return &quot;Create a comprehensive Project Requirements Document for &#39;{$projectName}&#39;.
+
+Application Idea: {$projectIdea}
+
+Infer the appropriate project type, technology stack, and scale based on the idea. Consider modern development practices and industry standards.
+
+Include these sections:
+1. Executive Summary
+2. Project Overview
+3. Goals and Objectives
+4. Target Audience
+5. Functional Requirements
+6. Non-Functional Requirements
+7. User Stories
+8. Technical Requirements
+9. Constraints and Assumptions
+10. Success Metrics
+11. Risk Assessment
+
+Provide specific, actionable content for each section tailored to the project type.
+Use bullet points and clear descriptions.
+Format in markdown with proper headers.
+Today&#39;s date: {$today}&quot;;
+    }
+</code></pre>
+<ul>
+<li><strong><code>/** ... */</code></strong>: This is a docblock comment. It&#39;s used for documenting what the method does, its parameters, and what it returns. It&#39;s very helpful for understanding code quickly.</li>
+<li><strong><code>public function buildPRDPrompt(...)</code></strong>:<ul>
+<li><code>public</code>: This keyword means the method can be called from anywhere outside this class.</li>
+<li><code>function</code>: This identifies it as a function (or method in a class).</li>
+<li><code>buildPRDPrompt</code>: This is the name of the method. <code>PRD</code> stands for &quot;Project Requirements Document.&quot;</li>
+</ul>
+</li>
+<li><strong><code>(string $projectName, string $projectIdea)</code></strong>: These are the <strong>parameters</strong> (inputs) the method expects.<ul>
+<li><code>string</code>: This is a &quot;type hint,&quot; telling PHP that <code>$projectName</code> and <code>$projectIdea</code> are expected to be text (strings).</li>
+<li><code>$projectName</code>: A variable that will hold the name of the project.</li>
+<li><code>$projectIdea</code>: A variable that will hold the description of the project idea.</li>
+</ul>
+</li>
+<li><strong><code>: string</code></strong>: This is a &quot;return type hint,&quot; indicating that this method will <em>always</em> return a <code>string</code> (a piece of text).</li>
+<li><strong><code>$today = date(&#39;Y-m-d&#39;);</code></strong>:<ul>
+<li><code>date()</code> is a built-in PHP function that gets the current date and time.</li>
+<li><code>&#39;Y-m-d&#39;</code> is a format string that tells <code>date()</code> to output the year (four digits), month (two digits), and day (two digits), separated by hyphens (e.g., <code>2023-10-27</code>).</li>
+<li>The result is stored in the <code>$today</code> variable.</li>
+</ul>
+</li>
+<li><strong><code>return &quot;...&quot;</code></strong>: This part returns a very long string of text. This text is the actual prompt that would be sent to an AI.<ul>
+<li>Notice how <code>$projectName</code>, <code>$projectIdea</code>, and <code>$today</code> are embedded directly into the string using curly braces (<code>{$variableName}</code>). This is called <strong>string interpolation</strong>, and it&#39;s a convenient way to insert variable values into double-quoted strings in PHP.</li>
+<li>The prompt provides clear instructions to the AI on what a PRD should contain (e.g., &quot;Executive Summary&quot;, &quot;Functional Requirements&quot;, &quot;Target Audience&quot;), how it should be formatted (markdown), and its purpose.</li>
+</ul>
+</li>
+</ul>
+<h4><strong>4.2. <code>buildSDDPrompt</code> Method</strong></h4>
+<pre><code class="language-php">    /**
+     * Build SDD generation prompt
+     */
+    public function buildSDDPrompt(string $projectName, string $prdContent): string
+    {
+        $today = date(&#39;Y-m-d&#39;);
+
+        return &quot;Create a detailed System Design Document for &#39;{$projectName}&#39; based on this PRD:
+
+{$prdContent}
+
+Design the system architecture considering modern best practices, security standards, and scalability needs. Choose appropriate technologies based on the project requirements and scale.
+
+Include these sections:
+1. System Architecture Overview
+2. Technology Stack
+3. Component Design
+4. Data Model and Database Schema
+5. API Design
+6. Security Considerations
+7. Performance Considerations
+8. Scalability Design
+9. Integration Points
+10. Deployment Architecture
+11. Testing Strategy
+
+Provide technical details for each section with specific recommendations.
+Use bullet points and clear descriptions.
+Format in markdown with proper headers.
+Today&#39;s date: {$today}
+NO MERMAID DIAGRAMS - ONLY TEXT.&quot;;
+    }
+</code></pre>
+<ul>
+<li>This method is similar to <code>buildPRDPrompt</code>, but it&#39;s designed to generate a prompt for a &quot;System Design Document&quot; (SDD).</li>
+<li>It takes <code>$projectName</code> and <code>prdContent</code> (the content of the PRD that was presumably generated earlier) as input.</li>
+<li>The prompt instructs the AI to design the system based on the provided <code>prdContent</code>, including sections like &quot;System Architecture Overview&quot;, &quot;Technology Stack&quot;, &quot;Data Model&quot;, etc.</li>
+<li><strong>Important detail</strong>: It explicitly tells the AI &quot;NO MERMAID DIAGRAMS - ONLY TEXT.&quot; This indicates that the AI should not try to generate visual diagrams but only text-based descriptions.</li>
+</ul>
+<h4><strong>4.3. <code>buildPlanPrompt</code> Method</strong></h4>
+<pre><code class="language-php">    /**
+     * Build development plan generation prompt
+     */
+    public function buildPlanPrompt(string $projectName, string $sddContent): string
+    {
+        $today = date(&#39;Y-m-d&#39;);
+
+        return &quot;Create a realistic development plan for &#39;{$projectName}&#39; based on this SDD:
+
+{$sddContent}
+
+Structure the plan with achievable phases, realistic timelines, and appropriate resource allocation based on project complexity and technology choices.
+
+Include these sections:
+1. Project Overview
+2. Technology Stack
+3. Development Phases
+4. Timeline Estimates
+5. Resource Requirements
+6. Risk Assessment and Mitigation
+7. Testing Strategy
+8. Deployment Plan
+
+Provide specific details for each section with time estimates and dependencies.
+Use bullet points and clear descriptions.
+Format in markdown with proper headers.
+Today&#39;s date: {$today}&quot;;
+    }
+</code></pre>
+<ul>
+<li>This method creates a prompt for generating a &quot;Development Plan.&quot;</li>
+<li>It takes <code>$projectName</code> and <code>sddContent</code> (the System Design Document) as input.</li>
+<li>The prompt asks the AI to create a plan with phases, timelines, resource allocation, etc., based on the detailed SDD.</li>
+</ul>
+<h4><strong>4.4. <code>buildPhasesPrompt</code> Method</strong></h4>
+<pre><code class="language-php">    /**
+     * Build phase documents generation prompt
+     */
+    public function buildPhasesPrompt(string $planContent): string
+    {
+        $today = date(&#39;Y-m-d&#39;);
+
+        return &quot;Break down this development plan into phase documents with todo lists:
+
+{$planContent}
+
+For each phase:
+## Phase X: [Phase Name]
+- [ ] Task 1: What needs to be accomplished
+- [ ] Task 2: Implementation details
+- [ ] Task 3: Testing requirements
+
+Number phases sequentially.
+Give each phase a descriptive name.
+Include specific, actionable tasks.
+Format in markdown with proper headers.
+Today&#39;s date: {$today}
+NO MERMAID DIAGRAMS - ONLY TEXT.&quot;;
+    }
+</code></pre>
+<ul>
+<li>This method generates a prompt to break down an existing development plan into individual phase documents, each with a to-do list.</li>
+<li>It takes <code>planContent</code> (the development plan generated earlier) as input.</li>
+<li>It provides a specific markdown format example for how each phase and its tasks should be structured.</li>
+<li>Again, it includes the instruction &quot;NO MERMAID DIAGRAMS - ONLY TEXT.&quot;</li>
+</ul>
+<h4><strong>4.5. <code>buildDiagramPrompt</code> Method</strong></h4>
+<pre><code class="language-php">    /**
+     * Build diagram generation prompt
+     */
+    public function buildDiagramPrompt(string $projectName, string $projectIdea): string
+    {
+        return &quot;Create a system architecture diagram for &#39;{$projectName}&#39; using Graphviz DOT language.
+
+Based on this project description:
+{$projectIdea}
+
+Requirements:
+- Use digraph format with proper graph attributes
+- Include main components, data flow, and relationships
+- Use appropriate node shapes (box, circle, cylinder for databases, etc.)
+- Add clear, descriptive labels for components
+- Number the relationships/edges sequentially (1, 2, 3...) to show the flow order
+- Make it readable and professional with good spacing
+- Focus on high-level architecture, not implementation details
+
+Styling requirements:
+- Set graph size to at least 8x6 inches for better readability
+- Use nodesep=1.0 and ranksep=1.5 for proper spacing between nodes
+- Add padding with pad=0.5
+- Ensure to increase font size based on diagram size and number of shapes to maintain readability, preferably large font size (e.g., 20-24pt)
+- Use &#39;Arial&#39; for all text to ensure readability
+- Ensure black font color for all text
+- Make nodes colorful with purposeful colors:
+  * User interface components: light blue (fillcolor=\&quot;#E3F2FD\&quot;, color=\&quot;#1976D2\&quot;)
+  * Backend/API components: light green (fillcolor=\&quot;#E8F5E8\&quot;, color=\&quot;#388E3C\&quot;)
+  * Database components: light orange (fillcolor=\&quot;#FFF3E0\&quot;, color=\&quot;#F57C00\&quot;)
+  * External services: light purple (fillcolor=\&quot;#F3E5F5\&quot;, color=\&quot;#7B1FA2\&quot;)
+  * Infrastructure: light gray (fillcolor=\&quot;#F5F5F5\&quot;, color=\&quot;#616161\&quot;)
+- Include sequential numbers in edge labels (e.g., \&quot;1. User Input\&quot;, \&quot;2. Data Processing\&quot;)
+- Make edges colored based on data flow type (blue for user interactions, green for data flow, etc.)
+
+Output only the complete DOT code starting with &#39;digraph&#39;, no explanations or markdown formatting.&quot;;
+    }
+</code></pre>
+<ul>
+<li>This is the most detailed prompt. It&#39;s designed to ask an AI to create a system architecture diagram.</li>
+<li>It takes <code>$projectName</code> and <code>$projectIdea</code> as input.</li>
+<li><strong>Key difference</strong>: Instead of asking for a text document, it specifically requests the output in &quot;Graphviz DOT language.&quot;<ul>
+<li><strong>Graphviz DOT language</strong> is a plain text language for describing graphs (like diagrams). You can then use the Graphviz software to render this DOT code into an image (like a PNG or SVG).</li>
+</ul>
+</li>
+<li>The prompt provides extremely specific requirements for the diagram, including:<ul>
+<li>Formatting (<code>digraph</code>).</li>
+<li>Components to include (main components, data flow).</li>
+<li>Node shapes (box, circle, cylinder).</li>
+<li>Styling details: graph size, spacing (<code>nodesep</code>, <code>ranksep</code>), font size, font family, font color.</li>
+<li>Specific color codes (hexadecimal values like <code>#E3F2FD</code>) for different types of components (UI, Backend, Database, etc.) to make the diagram visually distinct and professional.</li>
+<li>Instructions for edge labels and colors.</li>
+</ul>
+</li>
+<li><strong>Crucial instruction</strong>: &quot;Output only the complete DOT code starting with &#39;digraph&#39;, no explanations or markdown formatting.&quot; This tells the AI to return <em>only</em> the raw DOT language code, nothing else, so it can be directly processed by Graphviz.</li>
+</ul>
+<hr>
+<h3><strong>In Summary:</strong></h3>
+<p>The <code>PromptService</code> class acts as a utility to construct well-defined, instruction-rich text prompts. These prompts are designed to guide an AI (or a similar system) to generate specific types of project documentation (PRD, SDD, Development Plan, Phase Documents) or a system architecture diagram in a structured format like Graphviz DOT.</p>
+<p>This service centralizes the logic for creating these prompts, making it easy to generate consistent and detailed instructions based on project name, idea, and previously generated content.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation Arrows -->
+        <div id="nav-arrows" class="position-fixed d-none d-flex flex-column" style="bottom: 20px; right: 20px; z-index: 1040; gap: 8px;">
+            <button id="prev-file" class="btn btn-primary btn-sm" title="Previous file">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+            <button id="next-file" class="btn btn-primary btn-sm" title="Next file">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Non-critical scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" defer></script>
+    <!-- Load common programming languages for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/python.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/javascript.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/typescript.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/java.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/cpp.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/csharp.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/ruby.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/rust.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/php.min.js" defer></script>
+     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.0/marked.min.js" defer></script>
+     <script src="https://cdn.jsdelivr.net/npm/marked-highlight@2.1.0/lib/index.umd.js" defer></script>
+     <script src="https://cdn.jsdelivr.net/npm/mermaid@11.0.0/dist/mermaid.min.js" defer></script>

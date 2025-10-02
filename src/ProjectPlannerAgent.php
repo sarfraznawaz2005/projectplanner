@@ -12,10 +12,6 @@ use NeuronAI\Providers\OpenAI\OpenAI;
 
 class ProjectPlannerAgent extends Agent
 {
-    // Timeouts
-    private const AI_TIMEOUT_MS = 300000; // 5 minutes for AI operations
-    private const API_TIMEOUT_SECONDS = 300; // 5 minutes for API operations
-
     private DiagramGenerator $diagramGenerator;
     private PromptService $promptService;
 
@@ -35,8 +31,6 @@ class ProjectPlannerAgent extends Agent
         return $this->extractMarkdownContent($content);
     }
 
-
-
     protected function provider(): AIProviderInterface
     {
         $provider = config('ai.provider', 'gemini');
@@ -44,10 +38,7 @@ class ProjectPlannerAgent extends Agent
         $apiKey = config('ai.api_key');
         $temperature = config('ai.temperature', 0.7);
         $maxTokens = config('ai.max_tokens', 8192);
-        
-        // Get today's date for inclusion in prompts
-        $today = date('Y-m-d');
-        
+
         switch ($provider) {
             case 'anthropic':
                 return new Anthropic(
