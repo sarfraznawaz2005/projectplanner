@@ -33,14 +33,6 @@ try {
         throw new Exception('Project name and idea are required');
     }
 
-    // Input validation and sanitization
-    if (strlen($projectName) > 100) {
-        throw new Exception('Project name must be less than 100 characters');
-    }
-    if (strlen($projectIdea) > 10000) {
-        throw new Exception('Project idea must be less than 10,000 characters');
-    }
-
     // Basic sanitization
     $projectName = strip_tags($projectName);
     $projectIdea = strip_tags($projectIdea);

@@ -24,29 +24,6 @@ try {
         throw new Exception('Project name is required');
     }
 
-    // Input validation and sanitization
-    if (strlen($projectName) > 100) {
-        throw new Exception('Project name must be less than 100 characters');
-    }
-    if (strlen($projectIdea) > 10000) {
-        throw new Exception('Project idea must be less than 10,000 characters');
-    }
-    if (strlen($prdContent) > 200000) {
-        throw new Exception('PRD content must be less than 200,000 characters');
-    }
-    if (strlen($sddContent) > 200000) {
-        throw new Exception('SDD content must be less than 200,000 characters');
-    }
-    if (strlen($planContent) > 200000) {
-        throw new Exception('Plan content must be less than 200,000 characters');
-    }
-    if (strlen($phasesContent) > 200000) {
-        throw new Exception('Phases content must be less than 200,000 characters');
-    }
-    if (strlen($aiInstructionsContent) > 200000) {
-        throw new Exception('AI instructions content must be less than 200,000 characters');
-    }
-
     // Basic sanitization
     $projectName = strip_tags($projectName);
     $projectIdea = strip_tags($projectIdea);

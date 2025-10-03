@@ -53,14 +53,6 @@ class DocumentService
         if (empty(trim($idea))) {
             throw new \InvalidArgumentException('Project idea is required');
         }
-
-        if (strlen($name) > 100) {
-            throw new \InvalidArgumentException('Project name must be less than 100 characters');
-        }
-
-        if (strlen($idea) > 10000) {
-            throw new \InvalidArgumentException('Project idea must be less than 10,000 characters');
-        }
     }
 
     /**
